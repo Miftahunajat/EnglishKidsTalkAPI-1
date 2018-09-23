@@ -1,0 +1,25 @@
+{
+  "name": "ekita-api",
+  "version": "1.0.0",
+  "description": "Ekita API server for web and mobile app clients",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bossyahrul/EnglishKidsTalkAPI.git"
+  },
+  "keywords": [
+    "English",
+    "Kids",
+    "Talk",
+    "API"
+  ],
+  "author": "Syahrul Arifuddin",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bossyahrul/EnglishKidsTalkAPI/issues"
+  },
+  "homepage": "https://github.com/bossyahrul/EnglishKidsTalkAPI#readme"
+}
