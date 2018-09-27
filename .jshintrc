@@ -1,0 +1,9 @@
+{
+    "esversion": 6,
+    "jshint_options":
+    {
+        "globals": {
+            "module": false
+        }
+    }
+}

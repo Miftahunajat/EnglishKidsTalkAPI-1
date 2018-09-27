@@ -4,7 +4,8 @@
   "description": "Ekita API server for web and mobile app clients",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon server.js"
   },
   "repository": {
     "type": "git",
@@ -21,5 +22,16 @@
   "bugs": {
     "url": "https://github.com/bossyahrul/EnglishKidsTalkAPI/issues"
   },
-  "homepage": "https://github.com/bossyahrul/EnglishKidsTalkAPI#readme"
+  "homepage": "https://github.com/bossyahrul/EnglishKidsTalkAPI#readme",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.16.3",
+    "morgan": "^1.9.1",
+    "pg": "^7.4.3",
+    "pg-hstore": "^2.3.2",
+    "sequelize": "^4.38.1"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.4"
+  }
 }
