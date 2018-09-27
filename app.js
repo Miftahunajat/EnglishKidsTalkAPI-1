@@ -5,6 +5,7 @@ const bodyParser = require('body-parser');
 
 const learningTopicRoutes = require('./api/routes/LearningTopic');
 const badgeRoutes = require('./api/routes/Badge');
+const itemCategoryRoutes = require('./api/routes/ItemCategory');
 
 app.use(morgan('dev'));
 app.use(bodyParser.urlencoded({extended: false}));
@@ -23,6 +24,7 @@ app.use((req, res, next) => {
 // Route which need a handling request
 app.use('/badges', badgeRoutes);
 app.use('/learning-topics', learningTopicRoutes);
+app.use('/item-categories', itemCategoryRoutes);
 
 app.use((req, res, next) => {
     const error = new Error("Not found");

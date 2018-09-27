@@ -19,17 +19,11 @@ router.post('/', (req, res, next) => {
 });
 
 router.get('/:badgeId', (req, res, next) => {
-    const id = req.params.productId;
-    if (id === 'special'){
-        res.status(200).json({
-            message: 'Special ID',
-            id: id
-        });
-    } else {
-        res.status(200).json({
-            message: 'You passed an ID'
-        });
-    }
+    const badgeId = req.params.badgeId;
+    res.status(200).json({
+        message: 'Bagde detail',
+        data: badgeId
+    });
 });
 
 router.patch('/:badgeId', (req, res, next) => {
