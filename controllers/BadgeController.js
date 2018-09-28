@@ -42,6 +42,8 @@ module.exports = {
 		.create({
 			badge_name: req.body.badge_name,
 			badge_image: req.body.badge_image
+			// badge_name: "Animal master",
+			// badge_image: "asdasd/asd/adasd.jpg"
 		})
 		.then((badge) => res.status(201).send(badge))
 		.catch((error) => res.status(400).send(error));
@@ -83,7 +85,9 @@ module.exports = {
 			}
 			return badge
 			.destroy()
-			.then(() => res.status(204).send())
+			.then(() => res.status(204).send({
+				message: 'Data deleted!'
+			}))
 			.catch((error) => res.status(400).send(error));
 		})
 		.catch((error) => res.status(400).send(error));

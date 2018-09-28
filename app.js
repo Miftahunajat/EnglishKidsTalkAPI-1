@@ -3,10 +3,6 @@ const app = express();
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
 
-// const learningTopicRoutes = require('./api/routes/LearningTopic');
-// const badgeRoutes = require('./api/routes/Badge');
-// const itemCategoryRoutes = require('./api/routes/ItemCategory');
-
 var indexRouter = require('./routes/index');
 
 app.use(morgan('dev'));
