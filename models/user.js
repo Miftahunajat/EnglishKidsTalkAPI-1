@@ -10,11 +10,11 @@ module.exports = (sequelize, DataTypes) => {
 	User.associate = function(models) {
 		User.hasOne(models.UserProfile, {
 			foreignKey: 'user_id',
-			as: 'user'
+			as: 'userProfile'
 		});
 		User.hasOne(models.Inventory, {
 			foreignKey: 'user_id',
-			as: 'user'
+			as: 'inventory'
 		});
 		User.belongsToMany(models.Badge, {
 			through: 'BadgeEarning',

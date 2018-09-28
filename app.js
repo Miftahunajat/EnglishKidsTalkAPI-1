@@ -3,9 +3,11 @@ const app = express();
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
 
-const learningTopicRoutes = require('./api/routes/LearningTopic');
-const badgeRoutes = require('./api/routes/Badge');
-const itemCategoryRoutes = require('./api/routes/ItemCategory');
+// const learningTopicRoutes = require('./api/routes/LearningTopic');
+// const badgeRoutes = require('./api/routes/Badge');
+// const itemCategoryRoutes = require('./api/routes/ItemCategory');
+
+var indexRouter = require('./routes/index');
 
 app.use(morgan('dev'));
 app.use(bodyParser.urlencoded({extended: false}));
@@ -21,10 +23,7 @@ app.use((req, res, next) => {
     next();
 });
 
-// Route which need a handling request
-app.use('/badges', badgeRoutes);
-app.use('/learning-topics', learningTopicRoutes);
-app.use('/item-categories', itemCategoryRoutes);
+app.use('/', indexRouter);
 
 app.use((req, res, next) => {
     const error = new Error("Not found");
