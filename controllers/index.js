@@ -1,5 +1,9 @@
-const badge = require('./BadgeController');
+const BadgeController = require('./BadgeController');
+const AnswerController = require('./AnswerController');
+const ItemCategoryController = require('./ItemCategoryController');
 
 module.exports = {
-	badge,
+	BadgeController,
+	AnswerController,
+	ItemCategoryController
 };
