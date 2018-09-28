@@ -4,20 +4,23 @@
 		"password": "postgres",
 		"database": "english_kids_talk",
 		"host": "127.0.0.1",
-		"dialect": "postgres"
+		"dialect": "postgres",
+		"operatorsAliases": false
 	},
 	"test": {
 		"username": "postgres",
 		"password": "postgres",
 		"database": "english_kids_talk",
 		"host": "127.0.0.1",
-		"dialect": "postgres"
+		"dialect": "postgres",
+		"operatorsAliases": false
 	},
 	"production": {
 		"username": "postgres",
 		"password": "postgres",
 		"database": "english_kids_talk",
 		"host": "127.0.0.1",
-		"dialect": "postgres"
+		"dialect": "postgres",
+		"operatorsAliases": false
 	}
 }
