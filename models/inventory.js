@@ -4,7 +4,10 @@ module.exports = (sequelize, DataTypes) => {
 		user_id: DataTypes.INTEGER
 	}, {});
 	Inventory.associate = function(models) {
-		// associations can be defined here
+		Inventory.belongsTo(models.User, {
+			foreignKey: 'user_id',
+			as: 'user'
+		});
 	};
 	return Inventory;
 };

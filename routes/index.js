@@ -6,6 +6,8 @@ const answerController = require('../controllers').AnswerController;
 const itemCategoryController = require('../controllers').ItemCategoryController;
 const questionCategoryController = require('../controllers').QuestionCategoryController;
 const questionDifficultyController = require('../controllers').QuestionDifficultyController;
+const inventoryController = require('../controllers').InventoryController;
+const userController = require('../controllers').UserController;
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -49,5 +51,19 @@ router.get('/api/question-difficulties/:id', questionDifficultyController.getByI
 router.post('/api/question-difficulties', questionDifficultyController.add);
 router.put('/api/question-difficulties/:id', questionDifficultyController.update);
 router.delete('/api/question-difficulties/:id', questionDifficultyController.delete);
+
+/* Question Difficulty Router */
+router.get('/api/inventories', inventoryController.list);
+router.get('/api/inventories/:id', inventoryController.getById);
+router.post('/api/inventories', inventoryController.add);
+router.put('/api/inventories/:id', inventoryController.update);
+router.delete('/api/inventories/:id', inventoryController.delete);
+
+/* User Router */
+router.get('/api/users', userController.list);
+router.get('/api/users/:id', userController.getById);
+router.post('/api/users', userController.add);
+router.put('/api/users/:id', userController.update);
+router.delete('/api/users/:id', userController.delete);
 
 module.exports = router;

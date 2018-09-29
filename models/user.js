@@ -8,10 +8,10 @@ module.exports = (sequelize, DataTypes) => {
 		password: DataTypes.STRING
 	}, {});
 	User.associate = function(models) {
-		User.hasOne(models.UserProfile, {
-			foreignKey: 'user_id',
-			as: 'userProfile'
-		});
+		// User.hasOne(models.UserProfile, {
+		// 	foreignKey: 'user_id',
+		// 	as: 'userProfile'
+		// });
 		User.hasOne(models.Inventory, {
 			foreignKey: 'user_id',
 			as: 'inventory'
