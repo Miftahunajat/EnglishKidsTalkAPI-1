@@ -7,7 +7,10 @@ module.exports = (sequelize, DataTypes) => {
 		xp_gained: DataTypes.INTEGER
 	}, {});
 	UserProfile.associate = function(models) {
-		UserProfile.belongsTo(models.User);
+		UserProfile.belongsTo(models.User, {
+			foreignKey: 'user_id',
+			as: 'user'
+		});
 	};
 	return UserProfile;
 };

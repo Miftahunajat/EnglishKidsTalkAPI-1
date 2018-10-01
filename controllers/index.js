@@ -5,6 +5,7 @@ const QuestionCategoryController = require('./QuestionCategoryController');
 const QuestionDifficultyController = require('./QuestionDifficultyController');
 const InventoryController = require('./InventoryController');
 const UserController = require('./UserController');
+const UserProfileController = require('./UserProfileController');
 
 module.exports = {
 	BadgeController,
@@ -13,5 +14,6 @@ module.exports = {
 	QuestionCategoryController,
 	QuestionDifficultyController,
 	InventoryController,
-	UserController
+	UserController,
+	UserProfileController
 };

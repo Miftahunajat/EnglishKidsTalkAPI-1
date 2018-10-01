@@ -8,6 +8,7 @@ const questionCategoryController = require('../controllers').QuestionCategoryCon
 const questionDifficultyController = require('../controllers').QuestionDifficultyController;
 const inventoryController = require('../controllers').InventoryController;
 const userController = require('../controllers').UserController;
+const userProfileController = require('../controllers').UserProfileController;
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -65,5 +66,12 @@ router.get('/api/users/:id', userController.getById);
 router.post('/api/users', userController.add);
 router.put('/api/users/:id', userController.update);
 router.delete('/api/users/:id', userController.delete);
+
+/* User Profile Router */
+router.get('/api/user-profiles', userProfileController.list);
+router.get('/api/user-profiles/:id', userProfileController.getById);
+router.post('/api/user-profiles', userProfileController.add);
+router.put('/api/user-profiles/:id', userProfileController.update);
+router.delete('/api/user-profiles/:id', userProfileController.delete);
 
 module.exports = router;

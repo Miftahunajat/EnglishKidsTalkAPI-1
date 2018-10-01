@@ -1,5 +1,6 @@
 const User = require('../models').User;
 const Inventory = require('../models').Inventory;
+const UserProfile = require('../models').UserProfile;
 
 module.exports = {
 	list(req, res) {
@@ -8,10 +9,12 @@ module.exports = {
 			include: [{
 				model: Inventory,
 				as: 'inventory'
+			}, {
+				model: UserProfile,
+				as: 'userProfile'
 			}],
 			order: [
-				['createdAt', 'DESC'],
-				[{ model: Inventory, as: 'inventory' }, 'createdAt', 'DESC'],
+				['createdAt', 'DESC']
 			],
 		})
 		.then((users) => res.status(200).send(users))
@@ -24,6 +27,9 @@ module.exports = {
 			include: [{
 				model: Inventory,
 				as: 'inventory'
+			}, {
+				model: UserProfile,
+				as: 'userProfile'
 			}],
 		})
 		.then((user) => {
