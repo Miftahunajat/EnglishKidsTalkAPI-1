@@ -6,19 +6,18 @@ module.exports = {
 	list(req, res) {
 		return Inventory
 		.findAll({
-			// include: [
+			include: [
 			// {
 			// 	model: Item,
 			// 	as: 'items'
 			// }, 
-			// {
-            //     model: User,
-            //     as: 'users'
-            // }],
+			{
+                model: User,
+                as: 'user'
+            }],
 			order: [
 				['createdAt', 'DESC'],
-				// [{ model: Item, as: 'items' }, 'createdAt', 'DESC'],
-				// [{ model: User, as: 'users' }, 'createdAt', 'DESC'],
+				// [{ model: Item, as: 'items' }, 'createdAt', 'DESC']
 			],
 		})
 		.then((inventories) => res.status(200).send(inventories))
@@ -28,13 +27,16 @@ module.exports = {
 	getById(req, res) {
 		return Inventory
 		.findById(req.params.id, {
-			// include: [{
+			include: [
+			// {
 			// 	model: Item,
-			// 	as: 'items'
-			// }, {
-            //     model: User,
-            //     as: 'users'
-            // }],
+			// 	as: 'item'
+			// }, 
+			{
+                model: User,
+                as: 'user'
+			}
+			],
 		})
 		.then((inventory) => {
 			if (!inventory) {

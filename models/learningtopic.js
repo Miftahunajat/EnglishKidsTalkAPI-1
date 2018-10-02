@@ -11,8 +11,14 @@ module.exports = (sequelize, DataTypes) => {
 			foreignKey: 'learning_topic_id',
 			as: 'learningItems'
 		});
-		LearningTopic.belongsTo(models.QuestionDifficulty);
-		LearningTopic.belongsTo(models.QuestionCategory);
+		LearningTopic.belongsTo(models.QuestionDifficulty, {
+			foreignKey: 'question_difficulty_id',
+			as: 'questionDifficulty'
+		});
+		LearningTopic.belongsTo(models.QuestionCategory, {
+			foreignKey: 'question_category_id',
+			as: 'questionCategory'
+		});
 	};
 	return LearningTopic;
 };

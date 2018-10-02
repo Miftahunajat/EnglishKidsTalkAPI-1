@@ -12,7 +12,7 @@ module.exports = {
 			// }, 
 			{
                 model: User,
-                as: 'users'
+                as: 'user'
             }],
 			order: [
 				['createdAt', 'DESC'],
@@ -27,15 +27,15 @@ module.exports = {
 	getById(req, res) {
 		return UserProfile
 		.findById(req.params.id, {
-			// include: [
+			include: [
             // {
 			// 	model: Item,
 			// 	as: 'items'
             // }, 
-            // {
-            //     model: User,
-            //     as: 'users'
-            // }],
+            {
+                model: User,
+                as: 'user'
+            }],
 		})
 		.then((profile) => {
 			if (!profile) {
