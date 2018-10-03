@@ -38,15 +38,17 @@ module.exports = {
 	},
 	
 	add(req, res) {
-		return Badge
-		.create({
-			badge_name: req.body.badge_name,
-			badge_image: req.body.badge_image
-			// badge_name: "Animal master",
-			// badge_image: "asdasd/asd/adasd.jpg"
-		})
-		.then((badge) => res.status(201).send(badge))
-		.catch((error) => res.status(400).send(error));
+		// if (!req.file) return res.status(404).json({'msg':'Please upload a file'});
+		// const host = req.host;
+        // const filePath = req.protocol + "://" + host + '/' + req.file.path;
+		res.status(200).json(req.files);
+		// return Badge
+		// .create({
+		// 	badge_name: req.body.badge_name,
+		// 	badge_image: req.body.badge_image
+		// })
+		// .then((badge) => res.status(201).send(badge))
+		// .catch((error) => res.status(400).send(error));
 	},
 	
 	update(req, res) {

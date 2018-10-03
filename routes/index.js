@@ -13,7 +13,9 @@ const storage = multer.diskStorage({
 		});
 	}
 });
-const upload = multer({dest: 'resources/static/assets/uploads/'});
+const upload = multer({
+    storage: storage
+});
 
 const badgeController = require('../controllers').BadgeController;
 const answerController = require('../controllers').AnswerController;
@@ -44,7 +46,7 @@ router.delete('/api/users/:id', userController.delete);
 /* Item Router */
 router.get('/api/items', itemController.list);
 router.get('/api/items/:id', itemController.getById);
-router.post('/api/items', upload.single('image'), itemController.add);
+router.post('/api/items', itemController.add);
 router.put('/api/items/:id', itemController.update);
 router.delete('/api/items/:id', itemController.delete);
 
@@ -72,7 +74,7 @@ router.delete('/api/learning-topics/:id', learningTopicController.delete);
 /* Badge Router */
 router.get('/api/badges', badgeController.list);
 router.get('/api/badges/:id', badgeController.getById);
-router.post('/api/badges', badgeController.add);
+router.post('/api/badges', upload.any(), badgeController.add);
 router.put('/api/badges/:id', badgeController.update);
 router.delete('/api/badges/:id', badgeController.delete);
 

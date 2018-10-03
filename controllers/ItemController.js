@@ -55,7 +55,7 @@ module.exports = {
             name: req.body.name,
             item_desc: req.body.item_desc,
             star: req.body.star,
-            image: filePath,
+            image: req.body.image,
             x_coordinate: req.body.x_coordinate,
             y_coordinate: req.body.y_coordinate,
         })
