@@ -9,8 +9,8 @@ module.exports = (sequelize, DataTypes) => {
 	}, {});
 	User.associate = function(models) {
 		User.hasOne(models.UserProfile, {
-			foreignKey: 'user_id',
-			as: 'userProfile'
+			as: 'userProfile',
+			foreignKey: 'user_id'
 		});
 		User.hasOne(models.Inventory, {
 			foreignKey: 'user_id',
