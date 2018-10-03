@@ -16,10 +16,10 @@
 		"operatorsAliases": false
 	},
 	"production": {
-		"username": "postgres",
-		"password": "postgres",
-		"database": "english_kids_talk",
-		"host": "127.0.0.1",
+		"username": "niukqsocelnnkl",
+		"password": "3dde3676dc6e3ee78ef342ea643b88df71008d46d4a9588f0a88b4d0ed237fb7",
+		"database": "dd13c8r84ca6hf",
+		"host": "ec2-54-235-94-36.compute-1.amazonaws.com",
 		"dialect": "postgres",
 		"operatorsAliases": false
 	}
