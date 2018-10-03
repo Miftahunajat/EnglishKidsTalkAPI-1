@@ -47,8 +47,8 @@ module.exports = {
     },
     
     add(req, res) {
-        const host = req.host;
-        const filePath = req.protocol + "://" + host + '/' + req.file.path;
+        // const host = req.host;
+        // const filePath = req.protocol + "://" + host + '/' + req.file.path;
         return Item
         .create({
             item_category_id: req.body.item_category_id,
