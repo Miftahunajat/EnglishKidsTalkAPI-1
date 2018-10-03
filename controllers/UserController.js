@@ -3,6 +3,20 @@ const Badge = require('../models').Badge;
 const Inventory = require('../models').Inventory;
 const UserProfile = require('../models').UserProfile;
 
+const multer = require('multer');
+const crypto = require('crypto');
+const path = require('path');
+
+const storage = multer.diskStorage({
+	destination: 'resources/static/assets/uploads/avatar',
+	filename: function(req, file, callback){
+		crypto.pseudoRandomBytes(16, function(err, raw){
+			if (err) return callback(err);
+			callback(null, raw.toString('hex'), path.extname(file.originalname));
+		});
+	}
+});
+
 module.exports = {
 	list(req, res) {
 		return User

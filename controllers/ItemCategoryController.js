@@ -5,13 +5,13 @@ module.exports = {
 	list(req, res) {
 		return ItemCategory
 		.findAll({
-			// include: [{
-			// 	model: Item,
-			// 	as: 'items'
-			// }],
+			include: [{
+				model: Item,
+				as: 'items'
+			}],
 			order: [
 				['createdAt', 'DESC'],
-				// [{ model: Item, as: 'items' }, 'createdAt', 'DESC'],
+				[{ model: Item, as: 'items' }, 'createdAt', 'DESC'],
 			],
 		})
 		.then((itemCategories) => res.status(200).send(itemCategories))
@@ -21,10 +21,10 @@ module.exports = {
 	getById(req, res) {
 		return ItemCategory
 		.findById(req.params.id, {
-			// include: [{
-			// 	model: Item,
-			// 	as: 'items'
-			// }],
+			include: [{
+				model: Item,
+				as: 'items'
+			}],
 		})
 		.then((itemCategory) => {
 			if (!itemCategory) {
@@ -51,10 +51,10 @@ module.exports = {
 	update(req, res) {
 		return ItemCategory
 		.findById(req.params.id, {
-			// include: [{
-			// 	model: Item,
-			// 	as: 'items'
-			// }],
+			include: [{
+				model: Item,
+				as: 'items'
+			}],
 		})
 		.then(itemCategory => {
 			if (!itemCategory) {

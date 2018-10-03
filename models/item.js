@@ -10,7 +10,10 @@ module.exports = (sequelize, DataTypes) => {
 		y_coordinate: DataTypes.FLOAT
 	}, {});
 	Item.associate = function(models) {
-		Item.belongsTo(models.ItemCategory);
+		Item.belongsTo(models.ItemCategory, {
+			foreignKey: 'item_category_id',
+			as: 'itemCategory'
+		});
 		Item.belongsToMany(models.Inventory, {
 			through: 'InventoryItem',
 			as: 'inventories',

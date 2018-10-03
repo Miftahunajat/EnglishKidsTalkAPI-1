@@ -8,6 +8,11 @@ module.exports = (sequelize, DataTypes) => {
 			foreignKey: 'user_id',
 			as: 'user'
 		});
+		Inventory.belongsToMany(models.Item, {
+			through: 'InventoryItem',
+			as: 'items',
+			foreignKey: 'inventory_id'
+		});
 	};
 	return Inventory;
 };

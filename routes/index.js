@@ -1,5 +1,19 @@
 const express = require('express');
 const router = express.Router();
+const multer = require('multer');
+const crypto = require('crypto');
+const path = require('path');
+
+const storage = multer.diskStorage({
+	destination: 'resources/static/assets/uploads',
+	filename: function(req, file, callback){
+		crypto.pseudoRandomBytes(16, function(err, raw){
+			if (err) return callback(err);
+			callback(null, raw.toString('hex'), path.extname(file.originalname));
+		});
+	}
+});
+const upload = multer({dest: 'resources/static/assets/uploads/'});
 
 const badgeController = require('../controllers').BadgeController;
 const answerController = require('../controllers').AnswerController;
@@ -10,6 +24,7 @@ const inventoryController = require('../controllers').InventoryController;
 const userController = require('../controllers').UserController;
 const userProfileController = require('../controllers').UserProfileController;
 const learningTopicController = require('../controllers').LearningTopicController;
+const itemController = require('../controllers').ItemController;
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -25,6 +40,13 @@ router.get('/api/users/:id', userController.getById);
 router.post('/api/users', userController.add);
 router.put('/api/users/:id', userController.update);
 router.delete('/api/users/:id', userController.delete);
+
+/* Item Router */
+router.get('/api/items', itemController.list);
+router.get('/api/items/:id', itemController.getById);
+router.post('/api/items', upload.single('image'), itemController.add);
+router.put('/api/items/:id', itemController.update);
+router.delete('/api/items/:id', itemController.delete);
 
 /* Question Category Router */
 router.get('/api/question-categories', questionCategoryController.list);
