@@ -19,8 +19,14 @@ module.exports = (sequelize, DataTypes) => {
 			as: 'answerOptions',
 			foreignKey: 'challenge_id'
 		});
-		Challenge.belongsTo(models.QuestionDifficulty);
-		Challenge.belongsTo(models.QuestionCategory);
+		Challenge.belongsTo(models.QuestionDifficulty, {
+			foreignKey: 'question_difficulty_id',
+			as: 'questionDifficulty'
+		});
+		Challenge.belongsTo(models.QuestionCategory, {
+			foreignKey: 'question_category_id',
+			as: 'questionCategory'
+		});
 	};
 	return Challenge;
 };

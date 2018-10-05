@@ -12,6 +12,8 @@ const userController = require('../controllers').UserController;
 const userProfileController = require('../controllers').UserProfileController;
 const learningTopicController = require('../controllers').LearningTopicController;
 const itemController = require('../controllers').ItemController;
+const learningItemController = require('../controllers').LearningItemController;
+const challengeController = require('../controllers').ChallengeController;
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -28,6 +30,22 @@ router.post('/api/users/register', userController.add);
 router.post('/api/users/login', userController.login);
 router.put('/api/users/:id', userController.update);
 router.delete('/api/users/:id', userController.delete);
+
+/* Learning Item Router */
+router.get('/api/learning-items', learningItemController.list);
+router.get('/api/learning-items/:id', learningItemController.getById);
+router.post('/api/learning-items', learningItemController.add);
+router.post('/api/learning-items/login', learningItemController.login);
+router.put('/api/learning-items/:id', learningItemController.update);
+router.delete('/api/learning-items/:id', learningItemController.delete);
+
+/* Challenge Router */
+router.get('/api/challenges', challengeController.list);
+router.get('/api/challenges/:id', challengeController.getById);
+router.post('/api/challenges', challengeController.add);
+router.post('/api/challenges/login', challengeController.login);
+router.put('/api/challenges/:id', challengeController.update);
+router.delete('/api/challenges/:id', challengeController.delete);
 
 /* Item Router */
 router.get('/api/items', itemController.list);
