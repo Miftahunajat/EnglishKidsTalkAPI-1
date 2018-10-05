@@ -26,6 +26,11 @@ module.exports = (sequelize, DataTypes) => {
 			as: 'learningItems',
 			foreignKey: 'user_id'
 		});
+		User.belongsToMany(models.Challenge, {
+			through: 'ChallengeProgress',
+			as: 'challenges',
+			foreignKey: 'user_id'
+		});
 	};
 	return User;
 };
