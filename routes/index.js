@@ -1,21 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const multer = require('multer');
-const crypto = require('crypto');
-const path = require('path');
-
-const storage = multer.diskStorage({
-	destination: 'resources/static/assets/uploads',
-	filename: function(req, file, callback){
-		crypto.pseudoRandomBytes(16, function(err, raw){
-			if (err) return callback(err);
-			callback(null, raw.toString('hex'), path.extname(file.originalname));
-		});
-	}
-});
-const upload = multer({
-    storage: storage
-});
+const upload = require('../config/multer.config');
 
 const badgeController = require('../controllers').BadgeController;
 const answerController = require('../controllers').AnswerController;
@@ -30,7 +15,7 @@ const itemController = require('../controllers').ItemController;
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-    res.send({
+    res.status(200).json({
         msg: 'Welcome to EnglishKidsTalk API! For the documentation, kindly follow to this link!',
         link: 'editor.swagger.io'
     });
@@ -39,7 +24,8 @@ router.get('/', function(req, res, next) {
 /* User Router */
 router.get('/api/users', userController.list);
 router.get('/api/users/:id', userController.getById);
-router.post('/api/users', userController.add);
+router.post('/api/users/register', userController.add);
+router.post('/api/users/login', userController.login);
 router.put('/api/users/:id', userController.update);
 router.delete('/api/users/:id', userController.delete);
 
@@ -49,6 +35,13 @@ router.get('/api/items/:id', itemController.getById);
 router.post('/api/items', itemController.add);
 router.put('/api/items/:id', itemController.update);
 router.delete('/api/items/:id', itemController.delete);
+
+/* Item Category Router */
+router.get('/api/item-categories', itemCategoryController.list);
+router.get('/api/item-categories/:id', itemCategoryController.getById);
+router.post('/api/item-categories', upload.single("item_category_image"), itemCategoryController.add);
+router.put('/api/item-categories/:id', itemCategoryController.update);
+router.delete('/api/item-categories/:id', itemCategoryController.delete);
 
 /* Question Category Router */
 router.get('/api/question-categories', questionCategoryController.list);
@@ -74,7 +67,7 @@ router.delete('/api/learning-topics/:id', learningTopicController.delete);
 /* Badge Router */
 router.get('/api/badges', badgeController.list);
 router.get('/api/badges/:id', badgeController.getById);
-router.post('/api/badges', upload.any(), badgeController.add);
+router.post('/api/badges', badgeController.add);
 router.put('/api/badges/:id', badgeController.update);
 router.delete('/api/badges/:id', badgeController.delete);
 
@@ -84,13 +77,6 @@ router.get('/api/answers/:id', answerController.getById);
 router.post('/api/answers', answerController.add);
 router.put('/api/answers/:id', answerController.update);
 router.delete('/api/answers/:id', answerController.delete);
-
-/* Item Category Router */
-router.get('/api/item-categories', itemCategoryController.list);
-router.get('/api/item-categories/:id', itemCategoryController.getById);
-router.post('/api/item-categories', itemCategoryController.add);
-router.put('/api/item-categories/:id', itemCategoryController.update);
-router.delete('/api/item-categories/:id', itemCategoryController.delete);
 
 /* Question Difficulty Router */
 router.get('/api/inventories', inventoryController.list);
@@ -108,5 +94,6 @@ router.delete('/api/user-profiles/:id', userProfileController.delete);
 
 /* Advance Router */
 router.post('/api/users/add-badge', userController.addBadge);
+router.get('/routes', (req, res) => {res.status(200).json(router.stack)});
 
 module.exports = router;
