@@ -40,19 +40,16 @@ module.exports = {
 	},
 	
 	add(req, res) {
-		res.status(200).json({
-			'item_category_image': req.file,
-			'item_category_name': req.body.item_category_name,
-			'item_category_color': req.body.item_category_color
-		});
-		// return ItemCategory
-		// .create({
-		// 	item_category_image: req.body.item_category_image,
-        //     item_category_name: req.body.item_category_name,
-        //     item_category_color: req.body.item_category_color
-		// })
-		// .then((itemCategory) => res.status(201).send(itemCategory))
-		// .catch((error) => res.status(400).send(error));
+		const host = req.host;
+		const filePath = req.protocol + "://" + host + '/' + req.file.path;
+		return ItemCategory
+		.create({
+			item_category_image: filePath,
+            item_category_name: req.body.item_category_name,
+            item_category_color: req.body.item_category_color
+		})
+		.then((itemCategory) => res.status(201).send(itemCategory))
+		.catch((error) => res.status(400).send(error));
 	},
 	
 	update(req, res) {
