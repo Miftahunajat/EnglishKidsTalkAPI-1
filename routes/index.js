@@ -35,7 +35,6 @@ router.delete('/api/users/:id', userController.delete);
 router.get('/api/learning-items', learningItemController.list);
 router.get('/api/learning-items/:id', learningItemController.getById);
 router.post('/api/learning-items', learningItemController.add);
-router.post('/api/learning-items/login', learningItemController.login);
 router.put('/api/learning-items/:id', learningItemController.update);
 router.delete('/api/learning-items/:id', learningItemController.delete);
 
@@ -43,7 +42,6 @@ router.delete('/api/learning-items/:id', learningItemController.delete);
 router.get('/api/challenges', challengeController.list);
 router.get('/api/challenges/:id', challengeController.getById);
 router.post('/api/challenges', challengeController.add);
-router.post('/api/challenges/login', challengeController.login);
 router.put('/api/challenges/:id', challengeController.update);
 router.delete('/api/challenges/:id', challengeController.delete);
 
