@@ -57,7 +57,8 @@ module.exports = {
 			password: req.body.password,
 			gender: req.body.gender,
 			star_gained: req.body.star_gained,
-			xp_gained: req.body.xp_gained
+			xp_gained: req.body.xp_gained,
+			avatar: req.body.avatar
 		})
 		.then((user) => res.status(201).send(user))
 		.catch((error) => res.status(400).send(error));
@@ -119,7 +120,8 @@ module.exports = {
                 password: req.body.password || user.password,
                 gender: req.body.gender || user.gender,
                 star_gained: req.body.star_gained || user.star_gained,
-                xp_gained: req.body.xp_gained || user.xp_gained,
+				xp_gained: req.body.xp_gained || user.xp_gained,
+				avatar: req.body.avatar || user.avatar
 			})
 			.then(() => res.status(200).send(user))
 			.catch((error) => res.status(400).send(error));
