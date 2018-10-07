@@ -1,6 +1,8 @@
 const User = require('../models').User;
 const Badge = require('../models').Badge;
 const Inventory = require('../models').Inventory;
+const LearningItem = require('../models').LearningItem;
+const Challenge = require('../models').Challenge;
 
 module.exports = {
 	list(req, res) {
@@ -12,6 +14,12 @@ module.exports = {
 			}, {
 				model: Badge,
 				as: 'badges'
+			}, {
+				model: LearningItem,
+				as: 'learningItems'
+			}, {
+				model: Challenge,
+				as: 'challenges'
 			}],
 			order: [
 				['createdAt', 'DESC']
@@ -27,6 +35,15 @@ module.exports = {
 			include: [{
 				model: Inventory,
 				as: 'inventory'
+			}, {
+				model: Badge,
+				as: 'badges'
+			}, {
+				model: LearningItem,
+				as: 'learningItems'
+			}, {
+				model: Challenge,
+				as: 'challenges'
 			}],
 		})
 		.then((user) => {
@@ -97,6 +114,64 @@ module.exports = {
 					});
 				}
 				user.addBadge(badge);
+				return res.status(200).send(user);
+			})
+		})
+		.catch((error) => res.status(400).send(error));
+	},
+
+	addLearningItem(req, res) {
+		return User
+		.findById(req.body.user_id, {
+			include: [{
+				model: LearningItem,
+				as: 'learningItems'
+			}],
+		})
+		.then((user) => {
+			if (!user) {
+				return res.status(404).send({
+					message: 'User Not Found',
+				});
+			}
+			LearningItem
+			.findById(req.body.learning_item_id)
+			.then((learningItem) => {
+				if (!learningItem) {
+					return res.status(404).send({
+						message: 'Learning Item Not Found',
+					});
+				}
+				user.addLearningItem(learningItem);
+				return res.status(200).send(user);
+			})
+		})
+		.catch((error) => res.status(400).send(error));
+	},
+
+	addChallenge(req, res) {
+		return User
+		.findById(req.body.user_id, {
+			include: [{
+				model: Challenge,
+				as: 'challenges'
+			}],
+		})
+		.then((user) => {
+			if (!user) {
+				return res.status(404).send({
+					message: 'User Not Found',
+				});
+			}
+			Challenge
+			.findById(req.body.challenge_id)
+			.then((challenge) => {
+				if (!challenge) {
+					return res.status(404).send({
+						message: 'Challenge Not Found',
+					});
+				}
+				user.addChallenge(challenge);
 				return res.status(200).send(user);
 			})
 		})

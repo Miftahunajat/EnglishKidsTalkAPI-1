@@ -30,18 +30,22 @@ router.post('/api/users/login', upload.none(), userController.login);
 router.put('/api/users/:id', upload.none(), userController.update);
 router.delete('/api/users/:id', userController.delete);
 
+router.post('/api/users/add-badge', upload.none(), userController.addBadge);
+router.post('/api/users/add-learning-item', upload.none(), userController.addLearningItem);
+router.post('/api/users/add-challenge', upload.none(), userController.addChallenge);
+
 /* Learning Item Router */
 router.get('/api/learning-items', learningItemController.list);
 router.get('/api/learning-items/:id', learningItemController.getById);
-router.post('/api/learning-items', learningItemController.add);
-router.put('/api/learning-items/:id', learningItemController.update);
+router.post('/api/learning-items', upload.single("learning_item_image"), learningItemController.add);
+router.put('/api/learning-items/:id', upload.single("learning_item_image"), learningItemController.update);
 router.delete('/api/learning-items/:id', learningItemController.delete);
 
 /* Challenge Router */
 router.get('/api/challenges', challengeController.list);
 router.get('/api/challenges/:id', challengeController.getById);
-router.post('/api/challenges', challengeController.add);
-router.put('/api/challenges/:id', challengeController.update);
+router.post('/api/challenges', upload.single("challenge_image"), challengeController.add);
+router.put('/api/challenges/:id', upload.single("challenge_image"), challengeController.update);
 router.delete('/api/challenges/:id', challengeController.delete);
 
 /* Item Router */
@@ -75,8 +79,8 @@ router.delete('/api/question-difficulties/:id', questionDifficultyController.del
 /* Learning Topic Router */
 router.get('/api/learning-topics', learningTopicController.list);
 router.get('/api/learning-topics/:id', learningTopicController.getById);
-router.post('/api/learning-topics', learningTopicController.add);
-router.put('/api/learning-topics/:id', learningTopicController.update);
+router.post('/api/learning-topics', upload.single("learning_topic_image"), learningTopicController.add);
+router.put('/api/learning-topics/:id', upload.single("learning_topic_image"), learningTopicController.update);
 router.delete('/api/learning-topics/:id', learningTopicController.delete);
 
 /* Badge Router */
@@ -101,7 +105,6 @@ router.put('/api/inventories/:id', inventoryController.update);
 router.delete('/api/inventories/:id', inventoryController.delete);
 
 /* Advance Router */
-router.post('/api/users/add-badge', userController.addBadge);
 router.get('/routes', (req, res) => {res.status(200).json(router.stack)});
 
 module.exports = router;
