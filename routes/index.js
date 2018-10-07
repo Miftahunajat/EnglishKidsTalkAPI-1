@@ -9,7 +9,6 @@ const questionCategoryController = require('../controllers').QuestionCategoryCon
 const questionDifficultyController = require('../controllers').QuestionDifficultyController;
 const inventoryController = require('../controllers').InventoryController;
 const userController = require('../controllers').UserController;
-const userProfileController = require('../controllers').UserProfileController;
 const learningTopicController = require('../controllers').LearningTopicController;
 const itemController = require('../controllers').ItemController;
 const learningItemController = require('../controllers').LearningItemController;
@@ -100,13 +99,6 @@ router.get('/api/inventories/:id', inventoryController.getById);
 router.post('/api/inventories', inventoryController.add);
 router.put('/api/inventories/:id', inventoryController.update);
 router.delete('/api/inventories/:id', inventoryController.delete);
-
-/* User Profile Router */
-router.get('/api/user-profiles', userProfileController.list);
-router.get('/api/user-profiles/:id', userProfileController.getById);
-router.post('/api/user-profiles', userProfileController.add);
-router.put('/api/user-profiles/:id', userProfileController.update);
-router.delete('/api/user-profiles/:id', userProfileController.delete);
 
 /* Advance Router */
 router.post('/api/users/add-badge', userController.addBadge);

@@ -1,11 +1,14 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
 	const User = sequelize.define('User', {
-		profile_id: DataTypes.INTEGER,
 		inventory_id: DataTypes.INTEGER,
 		name: DataTypes.STRING,
 		username: DataTypes.STRING,
-		password: DataTypes.STRING
+		password: DataTypes.STRING,
+		gender: DataTypes.STRING,
+		star_gained: DataTypes.INTEGER,
+		xp_gained: DataTypes.INTEGER,
+		avatar: DataTypes.INTEGER
 	}, {});
 	User.associate = function(models) {
 		User.hasOne(models.Inventory, {

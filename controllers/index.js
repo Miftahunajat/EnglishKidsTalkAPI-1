@@ -5,7 +5,6 @@ const QuestionCategoryController = require('./QuestionCategoryController');
 const QuestionDifficultyController = require('./QuestionDifficultyController');
 const InventoryController = require('./InventoryController');
 const UserController = require('./UserController');
-const UserProfileController = require('./UserProfileController');
 const LearningTopicController = require('./LearningTopicController');
 const ItemController = require('./ItemController');
 const LearningItemController = require('./LearningItemController');
@@ -19,7 +18,6 @@ module.exports = {
 	QuestionDifficultyController,
 	InventoryController,
 	UserController,
-	UserProfileController,
 	LearningTopicController,
 	ItemController,
 	LearningItemController,
