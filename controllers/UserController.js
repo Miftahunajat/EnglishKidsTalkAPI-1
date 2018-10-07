@@ -1,7 +1,6 @@
 const User = require('../models').User;
 const Badge = require('../models').Badge;
 const Inventory = require('../models').Inventory;
-const UserProfile = require('../models').UserProfile;
 
 module.exports = {
 	list(req, res) {
@@ -10,9 +9,6 @@ module.exports = {
 			include: [{
 				model: Inventory,
 				as: 'inventory'
-			}, {
-				model: UserProfile,
-				as: 'userProfile'
 			}, {
 				model: Badge,
 				as: 'badges'
@@ -31,9 +27,6 @@ module.exports = {
 			include: [{
 				model: Inventory,
 				as: 'inventory'
-			}, {
-				model: UserProfile,
-				as: 'userProfile'
 			}],
 		})
 		.then((user) => {
@@ -50,8 +43,7 @@ module.exports = {
 	add(req, res) {
 		return User
 		.create({
-			profile_id: req.body.profile_id,
-            inventory_id: req.body.inventory_id,
+			inventory_id: req.body.inventory_id,
             name: req.body.name,
             username: req.body.username,
 			password: req.body.password,
@@ -60,7 +52,21 @@ module.exports = {
 			xp_gained: req.body.xp_gained,
 			avatar: req.body.avatar
 		})
-		.then((user) => res.status(201).send(user))
+		.then((user) => {
+			Inventory
+			.create({
+				user_id: user.id
+			})
+			.then((inventory) => {
+				user
+				.update({
+					inventory_id: inventory.id
+				})
+				.then(() => res.status(201).send(user))
+				.catch((error) => res.status(400).send(error));
+			})
+			.catch((error) => res.status(400).send(error));
+		})
 		.catch((error) => res.status(400).send(error));
 	},
 
@@ -113,7 +119,6 @@ module.exports = {
 			}
 			return user
 			.update({
-                profile_id: req.body.profile_id || user.profile_id,
                 inventory_id: req.body.inventory_id || user.inventory_id,
                 name: req.body.name || user.name,
                 username: req.body.username || user.username,

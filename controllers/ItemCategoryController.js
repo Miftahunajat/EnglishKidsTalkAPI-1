@@ -40,12 +40,6 @@ module.exports = {
 	},
 	
 	add(req, res) {
-		// const host = req.host;
-		// const filePath = req.protocol + "://" + host + '/' + req.file.path;
-		// const image = {};
-		// image.url = req.file.url;
-		// image.id = req.file.public_id;
-
 		return ItemCategory
 		.create({
 			item_category_image: req.file.url,
