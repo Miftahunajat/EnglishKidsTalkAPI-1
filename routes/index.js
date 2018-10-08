@@ -65,15 +65,15 @@ router.delete('/api/item-categories/:id', itemCategoryController.delete);
 /* Question Category Router */
 router.get('/api/question-categories', questionCategoryController.list);
 router.get('/api/question-categories/:id', questionCategoryController.getById);
-router.post('/api/question-categories', questionCategoryController.add);
-router.put('/api/question-categories/:id', questionCategoryController.update);
+router.post('/api/question-categories', upload.none(), questionCategoryController.add);
+router.put('/api/question-categories/:id', upload.none(), questionCategoryController.update);
 router.delete('/api/question-categories/:id', questionCategoryController.delete);
 
 /* Question Difficulty Router */
 router.get('/api/question-difficulties', questionDifficultyController.list);
 router.get('/api/question-difficulties/:id', questionDifficultyController.getById);
-router.post('/api/question-difficulties', questionDifficultyController.add);
-router.put('/api/question-difficulties/:id', questionDifficultyController.update);
+router.post('/api/question-difficulties', upload.none(), questionDifficultyController.add);
+router.put('/api/question-difficulties/:id', upload.none(), questionDifficultyController.update);
 router.delete('/api/question-difficulties/:id', questionDifficultyController.delete);
 
 /* Learning Topic Router */
@@ -86,15 +86,15 @@ router.delete('/api/learning-topics/:id', learningTopicController.delete);
 /* Badge Router */
 router.get('/api/badges', badgeController.list);
 router.get('/api/badges/:id', badgeController.getById);
-router.post('/api/badges', badgeController.add);
-router.put('/api/badges/:id', badgeController.update);
+router.post('/api/badges', upload.single("badge_image") ,badgeController.add);
+router.put('/api/badges/:id', upload.single("badge_image"), badgeController.update);
 router.delete('/api/badges/:id', badgeController.delete);
 
 /* Answer Router */
 router.get('/api/answers', answerController.list);
 router.get('/api/answers/:id', answerController.getById);
-router.post('/api/answers', answerController.add);
-router.put('/api/answers/:id', answerController.update);
+router.post('/api/answers', upload.none(), answerController.add);
+router.put('/api/answers/:id', upload.none(), answerController.update);
 router.delete('/api/answers/:id', answerController.delete);
 
 /* Question Difficulty Router */
@@ -103,8 +103,5 @@ router.get('/api/inventories/:id', inventoryController.getById);
 router.post('/api/inventories', inventoryController.add);
 router.put('/api/inventories/:id', inventoryController.update);
 router.delete('/api/inventories/:id', inventoryController.delete);
-
-/* Advance Router */
-router.get('/routes', (req, res) => {res.status(200).json(router.stack)});
 
 module.exports = router;
