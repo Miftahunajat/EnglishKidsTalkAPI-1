@@ -14,10 +14,9 @@ module.exports = (sequelize, DataTypes) => {
 			as: 'users',
 			foreignKey: 'challenge_id'
 		});
-		Challenge.belongsToMany(models.Answer, {
-			through: 'AnswerOption',
-			as: 'answerOptions',
-			foreignKey: 'challenge_id'
+		Challenge.hasMany(models.Answer, {
+			foreignKey: 'challenge_id',
+			as: 'answers'
 		});
 		Challenge.belongsTo(models.QuestionDifficulty, {
 			foreignKey: 'question_difficulty_id',

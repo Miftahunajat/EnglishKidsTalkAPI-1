@@ -1,6 +1,7 @@
 const Challenge = require('../models').Challenge;
 const QuestionDifficulty = require('../models').QuestionDifficulty;
 const User = require('../models').User;
+const Answer = require('../models').Answer;
 
 module.exports = {
 	list(req, res) {
@@ -12,7 +13,10 @@ module.exports = {
 			}, {
                 model: User,
                 as: 'users'
-            }],
+            }, {
+				model: Answer,
+				as: 'answers'
+			}],
 			order: [
 				['createdAt', 'DESC'],
 				[{ model: User, as: 'users' }, 'createdAt', 'DESC'],
@@ -55,35 +59,6 @@ module.exports = {
             challenge_question: req.body.challenge_question,
 		})
 		.then((challenge) => res.status(201).send(challenge))
-		.catch((error) => res.status(400).send(error));
-	},
-
-	addAnswerOption(req, res) {
-		return Challenge
-		.findById(req.body.challenge_id, {
-			include: [{
-				model: Answer,
-				as: 'answerOptions'
-			}],
-		})
-		.then((challenge) => {
-			if (!challenge) {
-				return res.status(404).send({
-					message: 'Challenge Not Found',
-				});
-			}
-			Answer
-			.findById(req.body.answer_id)
-			.then((answer) => {
-				if (!answer) {
-					return res.status(404).send({
-						message: 'Answer Not Found',
-					});
-				}
-				challenge.addAnswer(answer);
-				return res.status(200).send(challenge);
-			})
-		})
 		.catch((error) => res.status(400).send(error));
 	},
 	

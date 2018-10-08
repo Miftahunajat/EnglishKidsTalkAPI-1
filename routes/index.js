@@ -48,8 +48,6 @@ router.post('/api/challenges', upload.single("challenge_image"), challengeContro
 router.put('/api/challenges/:id', upload.single("challenge_image"), challengeController.update);
 router.delete('/api/challenges/:id', challengeController.delete);
 
-router.post('/api/challenges/add-answer-options', upload.none(), challengeController.addAnswerOption);
-
 /* Item Router */
 router.get('/api/items', itemController.list);
 router.get('/api/items/:id', itemController.getById);
