@@ -52,7 +52,6 @@ module.exports = {
 		})
 		.then((questionDifficulty) => res.status(201).send(questionDifficulty))
         .catch((error) => res.status(400).send(error));
-        // return res.status(200).json({'msg': req.body.question_difficulty_name});
 	},
 	
 	update(req, res) {
