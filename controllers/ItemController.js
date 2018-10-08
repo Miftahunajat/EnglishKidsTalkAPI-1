@@ -80,7 +80,13 @@ module.exports = {
             }
             return item
             .update({
-                student_name: req.body.student_name || itemCategory.student_name,
+                item_category_id: req.body.item_category_id || item.item_category_id,
+                name: req.body.name || item.name,
+                item_desc: req.body.item_desc || item.item_desc,
+                star: req.body.star || item.star,
+                image: req.file.url,
+                x_coordinate: req.body.x_coordinate || item.x_coordinate,
+                y_coordinate: req.body.y_coordinate || item.y_coordinate,
             })
             .then(() => res.status(200).send(item))
             .catch((error) => res.status(400).send(error));
