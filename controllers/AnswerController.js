@@ -7,11 +7,11 @@ module.exports = {
 		.findAll({
 			include: [{
 				model: Challenge,
-				as: 'challenges'
+				as: 'challenge'
 			}],
 			order: [
 				['createdAt', 'DESC'],
-				[{ model: Challenge, as: 'challenges' }, 'createdAt', 'DESC'],
+				[{ model: Challenge, as: 'challenge' }, 'createdAt', 'DESC'],
 			],
 		})
 		.then((answers) => res.status(200).send(answers))
@@ -40,6 +40,7 @@ module.exports = {
 	add(req, res) {
 		return Answer
 		.create({
+			challenge_id: req.body.challenge_id,
 			answer_text: req.body.answer_text,
 			is_correct: req.body.is_correct
 		})
@@ -63,6 +64,7 @@ module.exports = {
 			}
 			return answer
 			.update({
+				challenge_id: req.body.challenge_id || answer.challenge_id,
 				answer_text: req.body.answer_text || answer.answer_text,
 				is_correct: req.body.is_correct || answer.is_correct
 			})
