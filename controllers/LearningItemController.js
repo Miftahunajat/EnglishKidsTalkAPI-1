@@ -52,7 +52,7 @@ module.exports = {
             learning_topic_id: req.body.learning_topic_id,
             learning_item_xp: req.body.learning_item_xp,
             learning_item_title: req.body.learning_item_title,
-            learning_item_image: req.body.learning_item_image,
+            learning_item_image: req.file.url,
             learning_item_sound: req.body.learning_item_sound,
             learning_item_answer: req.body.learning_item_answer
 		})

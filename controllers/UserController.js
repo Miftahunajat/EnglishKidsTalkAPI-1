@@ -1,7 +1,8 @@
 const User = require('../models').User;
 const Badge = require('../models').Badge;
 const Inventory = require('../models').Inventory;
-const UserProfile = require('../models').UserProfile;
+const LearningItem = require('../models').LearningItem;
+const Challenge = require('../models').Challenge;
 
 module.exports = {
 	list(req, res) {
@@ -11,11 +12,14 @@ module.exports = {
 				model: Inventory,
 				as: 'inventory'
 			}, {
-				model: UserProfile,
-				as: 'userProfile'
-			}, {
 				model: Badge,
 				as: 'badges'
+			}, {
+				model: LearningItem,
+				as: 'learningItems'
+			}, {
+				model: Challenge,
+				as: 'challenges'
 			}],
 			order: [
 				['createdAt', 'DESC']
@@ -32,8 +36,14 @@ module.exports = {
 				model: Inventory,
 				as: 'inventory'
 			}, {
-				model: UserProfile,
-				as: 'userProfile'
+				model: Badge,
+				as: 'badges'
+			}, {
+				model: LearningItem,
+				as: 'learningItems'
+			}, {
+				model: Challenge,
+				as: 'challenges'
 			}],
 		})
 		.then((user) => {
@@ -50,16 +60,30 @@ module.exports = {
 	add(req, res) {
 		return User
 		.create({
-			profile_id: req.body.profile_id,
-            inventory_id: req.body.inventory_id,
+			inventory_id: req.body.inventory_id,
             name: req.body.name,
             username: req.body.username,
 			password: req.body.password,
 			gender: req.body.gender,
 			star_gained: req.body.star_gained,
-			xp_gained: req.body.xp_gained
+			xp_gained: req.body.xp_gained,
+			avatar: req.body.avatar
 		})
-		.then((user) => res.status(201).send(user))
+		.then((user) => {
+			Inventory
+			.create({
+				user_id: user.id
+			})
+			.then((inventory) => {
+				user
+				.update({
+					inventory_id: inventory.id
+				})
+				.then(() => res.status(201).send(user))
+				.catch((error) => res.status(400).send(error));
+			})
+			.catch((error) => res.status(400).send(error));
+		})
 		.catch((error) => res.status(400).send(error));
 	},
 
@@ -95,6 +119,64 @@ module.exports = {
 		})
 		.catch((error) => res.status(400).send(error));
 	},
+
+	addLearningItem(req, res) {
+		return User
+		.findById(req.body.user_id, {
+			include: [{
+				model: LearningItem,
+				as: 'learningItems'
+			}],
+		})
+		.then((user) => {
+			if (!user) {
+				return res.status(404).send({
+					message: 'User Not Found',
+				});
+			}
+			LearningItem
+			.findById(req.body.learning_item_id)
+			.then((learningItem) => {
+				if (!learningItem) {
+					return res.status(404).send({
+						message: 'Learning Item Not Found',
+					});
+				}
+				user.addLearningItem(learningItem);
+				return res.status(200).send(user);
+			})
+		})
+		.catch((error) => res.status(400).send(error));
+	},
+
+	addChallenge(req, res) {
+		return User
+		.findById(req.body.user_id, {
+			include: [{
+				model: Challenge,
+				as: 'challenges'
+			}],
+		})
+		.then((user) => {
+			if (!user) {
+				return res.status(404).send({
+					message: 'User Not Found',
+				});
+			}
+			Challenge
+			.findById(req.body.challenge_id)
+			.then((challenge) => {
+				if (!challenge) {
+					return res.status(404).send({
+						message: 'Challenge Not Found',
+					});
+				}
+				user.addChallenge(challenge);
+				return res.status(200).send(user);
+			})
+		})
+		.catch((error) => res.status(400).send(error));
+	},
 	
 	update(req, res) {
 		return User
@@ -112,14 +194,14 @@ module.exports = {
 			}
 			return user
 			.update({
-                profile_id: req.body.profile_id || user.profile_id,
                 inventory_id: req.body.inventory_id || user.inventory_id,
                 name: req.body.name || user.name,
                 username: req.body.username || user.username,
                 password: req.body.password || user.password,
                 gender: req.body.gender || user.gender,
                 star_gained: req.body.star_gained || user.star_gained,
-                xp_gained: req.body.xp_gained || user.xp_gained,
+				xp_gained: req.body.xp_gained || user.xp_gained,
+				avatar: req.body.avatar || user.avatar
 			})
 			.then(() => res.status(200).send(user))
 			.catch((error) => res.status(400).send(error));

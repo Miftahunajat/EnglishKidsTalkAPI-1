@@ -2,8 +2,6 @@ const Challenge = require('../models').Challenge;
 const QuestionDifficulty = require('../models').QuestionDifficulty;
 const User = require('../models').User;
 
-const fs = require('fs');
-
 module.exports = {
 	list(req, res) {
 		return Challenge
@@ -53,7 +51,7 @@ module.exports = {
             question_difficulty_id: req.body.question_difficulty_id,
             challenge_xp: req.body.challenge_xp,
             challenge_star: req.body.challenge_star,
-            challenge_image: req.body.challenge_image,
+            challenge_image: req.file.url,
             challenge_question: req.body.challenge_question,
 		})
 		.then((challenge) => res.status(201).send(challenge))
@@ -80,7 +78,7 @@ module.exports = {
                 question_difficulty_id: req.body.question_difficulty_id || challenge.question_difficulty_id,
                 challenge_xp: req.body.challenge_xp || challenge.challenge_xp,
                 challenge_star: req.body.challenge_star || challenge.challenge_star,
-                challenge_image: req.body.challenge_image || challenge.challenge_image,
+                challenge_image: req.file.url || challenge.challenge_image,
                 challenge_question: req.body.challenge_question || challenge.challenge_question
 			})
 			.then(() => res.status(200).send(challenge))

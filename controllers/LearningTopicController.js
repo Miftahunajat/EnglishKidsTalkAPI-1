@@ -49,7 +49,7 @@ module.exports = {
             question_difficulty_id: req.body.question_difficulty_id,
             question_category_id: req.body.question_category_id,
             learning_topic_name: req.body.learning_topic_name,
-            learning_topic_image: req.body.learning_topic_image
+            learning_topic_image: req.file.url
         })
         .then((learningTopic) => res.status(201).send(learningTopic))
         .catch((error) => res.status(400).send(error));
@@ -77,7 +77,7 @@ module.exports = {
                 question_difficulty_id: req.body.question_difficulty_id || learningTopic.question_difficulty_id,
                 question_category_id: req.body.question_category_id || learningTopic.question_category_id,
                 learning_topic_name: req.body.learning_topic_name || learningTopic.learning_topic_name,
-                learning_topic_image: req.body.learning_topic_image || learningTopic.learning_topic_image
+                learning_topic_image: req.file.url || learningTopic.learning_topic_image
             })
             .then(() => res.status(200).send(learningTopic))
             .catch((error) => res.status(400).send(error));
