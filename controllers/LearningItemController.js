@@ -47,17 +47,18 @@ module.exports = {
 	},
 	
 	add(req, res) {
-		return LearningItem
-		.create({
-            learning_topic_id: req.body.learning_topic_id,
-            learning_item_xp: req.body.learning_item_xp,
-            learning_item_title: req.body.learning_item_title,
-            learning_item_image: req.file.url,
-            learning_item_sound: req.body.learning_item_sound,
-            learning_item_answer: req.body.learning_item_answer
-		})
-		.then((learningItem) => res.status(201).send(learningItem))
-		.catch((error) => res.status(400).send(error));
+		res.status(200).send(req.files);
+		// return LearningItem
+		// .create({
+        //     learning_topic_id: req.body.learning_topic_id,
+        //     learning_item_xp: req.body.learning_item_xp,
+        //     learning_item_title: req.body.learning_item_title,
+        //     learning_item_image: req.file.url,
+        //     learning_item_sound: req.body.learning_item_sound,
+        //     learning_item_answer: req.body.learning_item_answer
+		// })
+		// .then((learningItem) => res.status(201).send(learningItem))
+		// .catch((error) => res.status(400).send(error));
 	},
 	
 	update(req, res) {

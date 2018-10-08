@@ -24,7 +24,7 @@ module.exports = {
 			order: [
 				['createdAt', 'DESC'],
 				[{ model: Challenge, as: 'challenges' }, 'createdAt', 'DESC'],
-				// [{ model: LearningTopic, as: 'learningTopics' }, 'createdAt', 'DESC'],
+				[{ model: LearningTopic, as: 'learningTopics' }, 'createdAt', 'DESC'],
 			],
 		})
 		.then((questionCategories) => res.status(200).send(questionCategories))
