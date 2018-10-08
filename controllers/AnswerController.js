@@ -21,10 +21,10 @@ module.exports = {
 	getById(req, res) {
 		return Answer
 		.findById(req.params.id, {
-			// include: [{
-			// 	model: Challenge,
-			// 	as: 'challenges'
-			// }],
+			include: [{
+				model: Challenge,
+				as: 'challenges'
+			}],
 		})
 		.then((answer) => {
 			if (!answer) {
@@ -50,10 +50,10 @@ module.exports = {
 	update(req, res) {
 		return Answer
 		.findById(req.params.id, {
-			// include: [{
-			// 	model: Challenge,
-			// 	as: 'challenges'
-			// }],
+			include: [{
+				model: Challenge,
+				as: 'challenges'
+			}],
 		})
 		.then(answer => {
 			if (!answer) {
