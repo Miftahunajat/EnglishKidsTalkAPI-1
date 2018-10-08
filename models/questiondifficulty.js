@@ -4,9 +4,9 @@ module.exports = (sequelize, DataTypes) => {
 		question_difficulty_name: DataTypes.INTEGER
 	}, {});
 	QuestionDifficulty.associate = function(models) {
-		QuestionDifficulty.hasMany(models.LearningTopic, {
+		QuestionDifficulty.hasMany(models.QuestionCategory, {
 			foreignKey: 'question_difficulty_id',
-			as: 'learningTopics'
+			as: 'questionCategories'
 		});
 		QuestionDifficulty.hasMany(models.Challenge, {
 			foreignKey: 'question_difficulty_id',

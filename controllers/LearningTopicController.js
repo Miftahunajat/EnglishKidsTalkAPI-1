@@ -6,13 +6,12 @@ module.exports = {
     list(req, res) {
         return LearningTopic
         .findAll({
-            include: [{
-                model: QuestionDifficulty,
-                as: 'questionDifficulty'
-            },{
+            include: [
+            {
                 model: QuestionCategory,
                 as: 'questionCategory'
-            }],
+            }
+            ],
             order: [
                 ['createdAt', 'DESC']
             ]
@@ -25,9 +24,6 @@ module.exports = {
         return LearningTopic
         .findById(req.params.id, {
             include: [{
-                model: QuestionDifficulty,
-                as: 'questionDifficulty'
-            },{
                 model: QuestionCategory,
                 as: 'questionCategory'
             }],
@@ -46,7 +42,6 @@ module.exports = {
     add(req, res) {
         return LearningTopic
         .create({
-            question_difficulty_id: req.body.question_difficulty_id,
             question_category_id: req.body.question_category_id,
             learning_topic_name: req.body.learning_topic_name,
             learning_topic_image: req.file.url
@@ -74,7 +69,6 @@ module.exports = {
             }
             return learningTopic
             .update({
-                question_difficulty_id: req.body.question_difficulty_id || learningTopic.question_difficulty_id,
                 question_category_id: req.body.question_category_id || learningTopic.question_category_id,
                 learning_topic_name: req.body.learning_topic_name || learningTopic.learning_topic_name,
                 learning_topic_image: req.file.url || learningTopic.learning_topic_image

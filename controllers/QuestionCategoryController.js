@@ -1,21 +1,29 @@
 const Challenge = require('../models').Challenge;
 const LearningTopic = require('../models').LearningTopic;
 const QuestionCategory = require('../models').QuestionCategory;
+const QuestionDifficulty = require('../models').QuestionDifficulty;
 
 module.exports = {
 	list(req, res) {
 		return QuestionCategory
 		.findAll({
-			// include: [{
-			// 	model: Challenge,
-			// 	as: 'challenges'
-			// }, {
-			// 	model: LearningTopic,
-			// 	as: 'learningTopics'
-			// }],
+			include: [
+			{
+				model: Challenge,
+				as: 'challenges'
+			}, 
+			{
+				model: LearningTopic,
+				as: 'learningTopics'
+			}, 
+			{
+				model: QuestionDifficulty,
+				as: 'questionDifficulty'
+			}
+		],
 			order: [
 				['createdAt', 'DESC'],
-				// [{ model: Challenge, as: 'challenges' }, 'createdAt', 'DESC'],
+				[{ model: Challenge, as: 'challenges' }, 'createdAt', 'DESC'],
 				// [{ model: LearningTopic, as: 'learningTopics' }, 'createdAt', 'DESC'],
 			],
 		})
@@ -26,13 +34,16 @@ module.exports = {
 	getById(req, res) {
 		return QuestionCategory
 		.findById(req.params.id, {
-			// include: [{
-			// 	model: Challenge,
-			// 	as: 'challenges'
-			// }, {
-			// 	model: LearningTopic,
-			// 	as: 'learningTopics'
-			// }],
+			include: [{
+				model: Challenge,
+				as: 'challenges'
+			}, {
+				model: LearningTopic,
+				as: 'learningTopics'
+			}, {
+				model: QuestionDifficulty,
+				as: 'questionDifficulty'
+			}],
 		})
 		.then((questionCategory) => {
 			if (!questionCategory) {
@@ -48,6 +59,7 @@ module.exports = {
 	add(req, res) {
 		return QuestionCategory
 		.create({
+			question_difficulty_id: req.body.question_difficulty_id,
 			question_category_name: req.body.question_category_name
 		})
 		.then((questionCategory) => res.status(201).send(questionCategory))
@@ -57,13 +69,16 @@ module.exports = {
 	update(req, res) {
 		return QuestionCategory
 		.findById(req.params.id, {
-			// include: [{
-			// 	model: Challenge,
-			// 	as: 'challenges'
-			// }, {
-			// 	model: LearningTopic,
-			// 	as: 'learningTopics'
-			// }],
+			include: [{
+				model: Challenge,
+				as: 'challenges'
+			}, {
+				model: LearningTopic,
+				as: 'learningTopics'
+			}, {
+				model: QuestionDifficulty,
+				as: 'questionDifficulty'
+			}],
 		})
 		.then(questionCategory => {
 			if (!questionCategory) {
@@ -73,6 +88,7 @@ module.exports = {
 			}
 			return questionCategory
 			.update({
+				question_difficulty_id: req.body.question_difficulty_id || questionCategory.question_difficulty_id,
                 question_category_name: req.body.question_category_name || questionCategory.question_category_name
 			})
 			.then(() => res.status(200).send(questionCategory))

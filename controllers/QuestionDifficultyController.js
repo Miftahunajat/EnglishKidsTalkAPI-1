@@ -1,22 +1,22 @@
 const Challenge = require('../models').Challenge;
-const LearningTopic = require('../models').LearningTopic;
 const QuestionDifficulty = require('../models').QuestionDifficulty;
+const QuestionCategory = require('../models').QuestionCategory;
 
 module.exports = {
 	list(req, res) {
 		return QuestionDifficulty
 		.findAll({
-			// include: [{
-			// 	model: Challenge,
-			// 	as: 'challenges'
-			// }, {
-			// 	model: LearningTopic,
-			// 	as: 'learningTopics'
-			// }],
+			include: [{
+				model: Challenge,
+				as: 'challenges'
+			}, {
+				model: QuestionCategory,
+				as: 'questionCategories'
+			}],
 			order: [
 				['createdAt', 'DESC'],
-				// [{ model: Challenge, as: 'challenges' }, 'createdAt', 'DESC'],
-				// [{ model: LearningTopic, as: 'learningTopics' }, 'createdAt', 'DESC'],
+				[{ model: Challenge, as: 'challenges' }, 'createdAt', 'DESC'],
+				[{ model: QuestionCategory, as: 'questionCategories' }, 'createdAt', 'DESC'],
 			],
 		})
 		.then((questionDifficulties) => res.status(200).send(questionDifficulties))
@@ -26,13 +26,13 @@ module.exports = {
 	getById(req, res) {
 		return QuestionDifficulty
 		.findById(req.params.id, {
-			// include: [{
-			// 	model: Challenge,
-			// 	as: 'challenges'
-			// }, {
-			// 	model: LearningTopic,
-			// 	as: 'learningTopics'
-			// }],
+			include: [{
+				model: Challenge,
+				as: 'challenges'
+			}, {
+				model: QuestionCategory,
+				as: 'questionCategories'
+			}],
 		})
 		.then((questionDifficulty) => {
 			if (!questionDifficulty) {
@@ -57,13 +57,13 @@ module.exports = {
 	update(req, res) {
 		return QuestionDifficulty
 		.findById(req.params.id, {
-			// include: [{
-			// 	model: Challenge,
-			// 	as: 'challenges'
-			// }, {
-			// 	model: LearningTopic,
-			// 	as: 'learningTopics'
-			// }],
+			include: [{
+				model: Challenge,
+				as: 'challenges'
+			}, {
+				model: QuestionCategory,
+				as: 'questionCategories'
+			}],
 		})
 		.then(questionCategory => {
 			if (!questionDifficulty) {
@@ -73,7 +73,7 @@ module.exports = {
 			}
 			return questionDifficulty
 			.update({
-                question_difficulty_name: req.body.question_difficulty_name || questionCategory.question_difficulty_name
+                question_difficulty_name: req.body.question_difficulty_name || questionDifficulty.question_difficulty_name
 			})
 			.then(() => res.status(200).send(questionDifficulty))
 			.catch((error) => res.status(400).send(error));
