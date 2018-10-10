@@ -14,7 +14,10 @@ module.exports = (sequelize, DataTypes) => {
 			as: 'users',
 			foreignKey: 'learning_item_id'
 		});
-		LearningItem.belongsTo(models.LearningTopic);
+		LearningItem.belongsTo(models.LearningTopic, {
+			foreignKey: 'learning_topic_id',
+			as: 'learningTopic'
+		});
 	};
 	return LearningItem;
 };

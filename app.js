@@ -22,7 +22,8 @@ app.use((req, res, next) => {
 app.use('/', indexRouter);
 
 app.use((req, res, next) => {
-    const error = new Error("Not found");
+    let docLink = 'https://editor.swagger.io';
+    const error = new Error("Route not found! Please refer to see API documentation " + docLink);
     error.status = 404;
     next(error);
 });
