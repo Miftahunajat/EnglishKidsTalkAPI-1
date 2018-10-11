@@ -53,9 +53,8 @@ module.exports = {
             name: req.body.name,
             item_desc: req.body.item_desc,
             star: req.body.star,
-            image: req.file.url,
-            x_coordinate: req.body.x_coordinate,
-            y_coordinate: req.body.y_coordinate,
+            image: req.files["image"][0].url,
+            snippet: req.files["snippet"][0].url
         })
         .then((item) => res.status(201).send(item))
         .catch((error) => res.status(400).send(error));
@@ -84,9 +83,8 @@ module.exports = {
                 name: req.body.name || item.name,
                 item_desc: req.body.item_desc || item.item_desc,
                 star: req.body.star || item.star,
-                image: req.file.url,
-                x_coordinate: req.body.x_coordinate || item.x_coordinate,
-                y_coordinate: req.body.y_coordinate || item.y_coordinate,
+                image: req.files["image"][0].url,
+                snippet: req.files["snippet"][0].url
             })
             .then(() => res.status(200).send(item))
             .catch((error) => res.status(400).send(error));

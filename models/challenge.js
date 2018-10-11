@@ -6,7 +6,8 @@ module.exports = (sequelize, DataTypes) => {
 		challenge_xp: DataTypes.INTEGER,
 		challenge_star: DataTypes.INTEGER,
 		challenge_image: DataTypes.TEXT,
-		challenge_question: DataTypes.STRING
+		challenge_question: DataTypes.STRING,
+		challenge_type: DataTypes.INTEGER
 	}, {});
 	Challenge.associate = function(models) {
 		Challenge.belongsToMany(models.User, {

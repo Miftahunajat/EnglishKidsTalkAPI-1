@@ -51,8 +51,16 @@ router.delete('/api/challenges/:id', challengeController.delete);
 /* Item Router */
 router.get('/api/items', itemController.list);
 router.get('/api/items/:id', itemController.getById);
-router.post('/api/items', upload.single("image"), itemController.add);
-router.put('/api/items/:id', upload.single("image"), itemController.update);
+// router.post('/api/items', upload.single("image"), itemController.add);
+// router.put('/api/items/:id', upload.single("image"), itemController.update);
+router.post('/api/items', upload.fields([
+    {name: 'image', maxCount: 1},
+    {name: 'snippet', maxCount: 1}
+]), itemController.add);
+router.put('/api/items/:id', upload.fields([
+    {name: 'image', maxCount: 1},
+    {name: 'snippet', maxCount: 1}
+]), itemController.update);
 router.delete('/api/items/:id', itemController.delete);
 
 /* Item Category Router */

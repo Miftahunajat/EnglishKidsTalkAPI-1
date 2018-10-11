@@ -56,7 +56,8 @@ module.exports = {
             challenge_xp: req.body.challenge_xp,
             challenge_star: req.body.challenge_star,
             challenge_image: req.file.url,
-            challenge_question: req.body.challenge_question,
+			challenge_question: req.body.challenge_question,
+			challenge_type: req.body.challenge_type
 		})
 		.then((challenge) => res.status(201).send(challenge))
 		.catch((error) => res.status(400).send(error));
@@ -83,7 +84,8 @@ module.exports = {
                 challenge_xp: req.body.challenge_xp || challenge.challenge_xp,
                 challenge_star: req.body.challenge_star || challenge.challenge_star,
                 challenge_image: req.file.url || challenge.challenge_image,
-                challenge_question: req.body.challenge_question || challenge.challenge_question
+				challenge_question: req.body.challenge_question || challenge.challenge_question,
+				challenge_type: req.body.challenge_type || challenge.challenge_type
 			})
 			.then(() => res.status(200).send(challenge))
 			.catch((error) => res.status(400).send(error));
