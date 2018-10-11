@@ -6,8 +6,7 @@ module.exports = (sequelize, DataTypes) => {
 		item_desc: DataTypes.TEXT,
 		star: DataTypes.INTEGER,
 		image: DataTypes.TEXT,
-		x_coordinate: DataTypes.FLOAT,
-		y_coordinate: DataTypes.FLOAT
+		snippet: DataTypes.TEXT
 	}, {});
 	Item.associate = function(models) {
 		Item.belongsTo(models.ItemCategory, {
