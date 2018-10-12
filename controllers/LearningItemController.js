@@ -45,42 +45,58 @@ module.exports = {
 	},
 	
 	add(req, res) {
-		return LearningItem
-		.create({
-            learning_topic_id: req.body.learning_topic_id,
-            learning_item_xp: req.body.learning_item_xp,
-            learning_item_title: req.body.learning_item_title,
-            learning_item_image: req.file.url
-		})
-		.then((learningItem) => res.status(201).send(learningItem))
-		.catch((error) => res.status(400).send(error));
+		let learning_topic_id = req.body.learning_topic_id;
+		let learning_item_xp = req.body.learning_item_xp;
+		let learning_item_title = req.body.learning_item_title;
+		let learning_item_image = req.file.url;
+		if (!learning_topic_id || !learning_item_xp || !learning_item_title || !learning_item_image){
+			res.status(404).send({'msg': 'Field cannot be null!'});
+		} else {
+			return LearningItem
+			.create({
+				learning_topic_id: learning_topic_id,
+				learning_item_xp: learning_item_xp,
+				learning_item_title: learning_item_title,
+				learning_item_image: learning_item_image
+			})
+			.then((learningItem) => res.status(201).send(learningItem))
+			.catch((error) => res.status(400).send(error));
+		}
 	},
 	
 	update(req, res) {
-		return LearningItem
-		.findById(req.params.id, {
-			include: [{
-				model: LearningTopic,
-				as: 'learningTopic'
-			}],
-		})
-		.then(learningItem => {
-			if (!learningItem) {
-				return res.status(404).send({
-					message: 'Learning item Not Found!',
-				});
-			}
-			return learningItem
-			.update({
-                learning_topic_id: req.body.learning_topic_id || learningItem.learning_topic_id,
-                learning_item_xp: req.body.learning_item_xp || learningItem.learning_item_xp,
-                learning_item_title: req.body.learning_item_title || learningItem.learning_item_title,
-                learning_item_image: req.body.learning_item_image || learningItem.learning_item_image
+		let learning_topic_id = req.body.learning_topic_id;
+		let learning_item_xp = req.body.learning_item_xp;
+		let learning_item_title = req.body.learning_item_title;
+		let learning_item_image = req.file.url;
+		if (!learning_topic_id || !learning_item_xp || !learning_item_title || !learning_item_image){
+			res.status(404).send({'msg': 'Field cannot be null!'});
+		} else {
+			return LearningItem
+			.findById(req.params.id, {
+				include: [{
+					model: LearningTopic,
+					as: 'learningTopic'
+				}],
 			})
-			.then(() => res.status(200).send(learningItem))
+			.then(learningItem => {
+				if (!learningItem) {
+					return res.status(404).send({
+						message: 'Learning item Not Found!',
+					});
+				}
+				return learningItem
+				.update({
+					learning_topic_id: learning_topic_id || learningItem.learning_topic_id,
+					learning_item_xp: learning_item_xp || learningItem.learning_item_xp,
+					learning_item_title: learning_item_title || learningItem.learning_item_title,
+					learning_item_image: learning_item_image || learningItem.learning_item_image
+				})
+				.then(() => res.status(200).send(learningItem))
+				.catch((error) => res.status(400).send(error));
+			})
 			.catch((error) => res.status(400).send(error));
-		})
-		.catch((error) => res.status(400).send(error));
+		}
 	},
 	
 	delete(req, res) {
