@@ -40,40 +40,54 @@ module.exports = {
 	},
 	
 	add(req, res) {
-		return ItemCategory
-		.create({
-			item_category_image: req.file.url,
-            item_category_name: req.body.item_category_name,
-            item_category_color: req.body.item_category_color
-		})
-		.then((itemCategory) => res.status(201).send(itemCategory))
-		.catch((error) => res.status(400).send(error));
+		let item_category_image = req.file.url;
+		let item_category_name = req.body.item_category_name;
+		let item_category_color = req.body.item_category_color;
+		if (!item_category_image || !item_category_name || !item_category_color) {
+			res.status(404).send({'msg': 'Field cannot be null!'});
+		} else {
+			return ItemCategory
+			.create({
+				item_category_image: item_category_image,
+				item_category_name: item_category_name,
+				item_category_color: item_category_color
+			})
+			.then((itemCategory) => res.status(201).send(itemCategory))
+			.catch((error) => res.status(400).send(error));
+		}
 	},
 	
 	update(req, res) {
-		return ItemCategory
-		.findById(req.params.id, {
-			include: [{
-				model: Item,
-				as: 'items'
-			}],
-		})
-		.then(itemCategory => {
-			if (!itemCategory) {
-				return res.status(404).send({
-					message: 'Item category Not Found!',
-				});
-			}
-			return itemCategory
-			.update({
-                item_category_image: req.body.item_category_image || itemCategory.item_category_image,
-                item_category_name: req.body.item_category_name || itemCategory.item_category_name,
-                item_category_color: req.body.item_category_color || itemCategory.item_category_color
+		let item_category_image = req.file.url;
+		let item_category_name = req.body.item_category_name;
+		let item_category_color = req.body.item_category_color;
+		if (!item_category_image || !item_category_name || !item_category_color) {
+			res.status(404).send({'msg': 'Field cannot be null!'});
+		} else {
+			return ItemCategory
+			.findById(req.params.id, {
+				include: [{
+					model: Item,
+					as: 'items'
+				}],
 			})
-			.then(() => res.status(200).send(itemCategory))
+			.then(itemCategory => {
+				if (!itemCategory) {
+					return res.status(404).send({
+						message: 'Item category Not Found!',
+					});
+				}
+				return itemCategory
+				.update({
+					item_category_image: item_category_image || itemCategory.item_category_image,
+					item_category_name: item_category_name || itemCategory.item_category_name,
+					item_category_color: item_category_color || itemCategory.item_category_color
+				})
+				.then(() => res.status(200).send(itemCategory))
+				.catch((error) => res.status(400).send(error));
+			})
 			.catch((error) => res.status(400).send(error));
-		})
-		.catch((error) => res.status(400).send(error));
+		}
 	},
 	
 	delete(req, res) {

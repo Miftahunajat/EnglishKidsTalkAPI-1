@@ -47,49 +47,69 @@ module.exports = {
     },
     
     add(req, res) {
-        return Item
-        .create({
-            item_category_id: req.body.item_category_id,
-            name: req.body.name,
-            item_desc: req.body.item_desc,
-            star: req.body.star,
-            image: req.files["image"][0].url,
-            snippet: req.files["snippet"][0].url
-        })
-        .then((item) => res.status(201).send(item))
-        .catch((error) => res.status(400).send(error));
+        let item_category_id = req.body.item_category_id;
+        let name = req.body.name;
+        let item_desc = req.body.item_desc;
+        let star = req.body.star;
+        let image = req.files["image"][0].url;
+        let snippet = req.files["snippet"][0].url;
+        if (!item_category_id || !name || !item_desc || !star || !image || !snippet){
+			res.status(404).send({'msg': 'Field cannot be null!'});
+		} else {
+            return Item
+            .create({
+                item_category_id: item_category_id,
+                name: name,
+                item_desc: item_desc,
+                star: star,
+                image: image,
+                snippet: snippet
+            })
+            .then((item) => res.status(201).send(item))
+            .catch((error) => res.status(400).send(error));
+        }
     },
     
     update(req, res) {
-        return Item
-        .findById(req.params.id, {
-            include: [{
-                model: ItemCategory,
-                as: 'itemCategory'
-            },{
-                model: Inventory,
-                as: 'inventories'
-            }],
-        })
-        .then(item => {
-            if (!item) {
-                return res.status(404).send({
-                    message: 'Item Not Found',
-                });
-            }
-            return item
-            .update({
-                item_category_id: req.body.item_category_id || item.item_category_id,
-                name: req.body.name || item.name,
-                item_desc: req.body.item_desc || item.item_desc,
-                star: req.body.star || item.star,
-                image: req.files["image"][0].url,
-                snippet: req.files["snippet"][0].url
+        let item_category_id = req.body.item_category_id;
+        let name = req.body.name;
+        let item_desc = req.body.item_desc;
+        let star = req.body.star;
+        let image = req.files["image"][0].url;
+        let snippet = req.files["snippet"][0].url;
+        if (!item_category_id || !name || !item_desc || !star || !image || !snippet){
+			res.status(404).send({'msg': 'Field cannot be null!'});
+		} else {
+            return Item
+            .findById(req.params.id, {
+                include: [{
+                    model: ItemCategory,
+                    as: 'itemCategory'
+                },{
+                    model: Inventory,
+                    as: 'inventories'
+                }],
             })
-            .then(() => res.status(200).send(item))
+            .then(item => {
+                if (!item) {
+                    return res.status(404).send({
+                        message: 'Item Not Found',
+                    });
+                }
+                return item
+                .update({
+                    item_category_id: item_category_id || item.item_category_id,
+                    name: name || item.name,
+                    item_desc: item_desc || item.item_desc,
+                    star: star || item.star,
+                    image: image,
+                    snippet: snippet
+                })
+                .then(() => res.status(200).send(item))
+                .catch((error) => res.status(400).send(error));
+            })
             .catch((error) => res.status(400).send(error));
-        })
-        .catch((error) => res.status(400).send(error));
+        }
     },
     
     delete(req, res) {

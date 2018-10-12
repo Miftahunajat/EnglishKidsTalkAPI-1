@@ -38,42 +38,50 @@ module.exports = {
 	},
 	
 	add(req, res) {
-		// if (!req.file) return res.status(404).json({'msg':'Please upload a file'});
-		// const host = req.host;
-        // const filePath = req.protocol + "://" + host + '/' + req.file.path;
-		res.status(200).json(req.files);
-		// return Badge
-		// .create({
-		// 	badge_name: req.body.badge_name,
-		// 	badge_image: req.body.badge_image
-		// })
-		// .then((badge) => res.status(201).send(badge))
-		// .catch((error) => res.status(400).send(error));
+		let badge_name = req.body.badge_name;
+		let badge_image = req.file.url;
+		if (!badge_name || !badge_image){
+			res.status(404).send({'msg': 'Field cannot be null!'});
+		} else {
+			return Badge
+			.create({
+				badge_name: badge_name,
+				badge_image: badge_image
+			})
+			.then((badge) => res.status(201).send(badge))
+			.catch((error) => res.status(400).send(error));
+		}
 	},
 	
 	update(req, res) {
-		return Badge
-		.findById(req.params.id, {
-			include: [{
-				model: User,
-				as: 'users'
-			}],
-		})
-		.then(badge => {
-			if (!badge) {
-				return res.status(404).send({
-					message: 'Badge Not Found!',
-				});
-			}
-			return badge
-			.update({
-				badge_name: req.body.badge_name || badge.badge_name,
-				badge_image: req.body.badge_image || badge.badge_image
+		let badge_name = req.body.badge_name;
+		let badge_image = req.file.url;
+		if (!badge_name || !badge_image){
+			res.status(404).send({'msg': 'Field cannot be null!'});
+		} else {
+			return Badge
+			.findById(req.params.id, {
+				include: [{
+					model: User,
+					as: 'users'
+				}],
 			})
-			.then(() => res.status(200).send(badge))
+			.then(badge => {
+				if (!badge) {
+					return res.status(404).send({
+						message: 'Badge Not Found!',
+					});
+				}
+				return badge
+				.update({
+					badge_name: badge_name || badge.badge_name,
+					badge_image: badge_image || badge.badge_image
+				})
+				.then(() => res.status(200).send(badge))
+				.catch((error) => res.status(400).send(error));
+			})
 			.catch((error) => res.status(400).send(error));
-		})
-		.catch((error) => res.status(400).send(error));
+		}
 	},
 	
 	delete(req, res) {

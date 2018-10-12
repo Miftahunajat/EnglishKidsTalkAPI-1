@@ -7,17 +7,17 @@ module.exports = {
 		return Inventory
 		.findAll({
 			include: [
-			// {
-			// 	model: Item,
-			// 	as: 'items'
-			// }, 
+			{
+				model: Item,
+				as: 'items'
+			}, 
 			{
                 model: User,
                 as: 'user'
             }],
 			order: [
 				['createdAt', 'DESC'],
-				// [{ model: Item, as: 'items' }, 'createdAt', 'DESC']
+				[{ model: Item, as: 'items' }, 'createdAt', 'DESC']
 			],
 		})
 		.then((inventories) => res.status(200).send(inventories))
@@ -28,10 +28,10 @@ module.exports = {
 		return Inventory
 		.findById(req.params.id, {
 			include: [
-			// {
-			// 	model: Item,
-			// 	as: 'item'
-			// }, 
+			{
+				model: Item,
+				as: 'item'
+			}, 
 			{
                 model: User,
                 as: 'user'
@@ -50,39 +50,49 @@ module.exports = {
 	},
 	
 	add(req, res) {
-		return Inventory
-		.create({
-			user_id: req.body.user_id
-		})
-		.then((inventory) => res.status(201).send(inventory))
-		.catch((error) => res.status(400).send(error));
+		let user_id = req.body.user_id;
+		if (!user_id) {
+			res.status(404).send({'msg': 'Field cannot be null!'});
+		} else {
+			return Inventory
+			.create({
+				user_id: user_id
+			})
+			.then((inventory) => res.status(201).send(inventory))
+			.catch((error) => res.status(400).send(error));
+		}
 	},
 	
 	update(req, res) {
-		return Inventory
-		.findById(req.params.id, {
-			// include: [{
-			// 	model: Item,
-			// 	as: 'items'
-			// }, {
-            //     model: User,
-            //     as: 'users'
-            // }],
-		})
-		.then(inventory => {
-			if (!inventory) {
-				return res.status(404).send({
-					message: 'Inventory Not Found!',
-				});
-			}
-			return inventory
-			.update({
-				user_id: req.body.user_id || inventory.user_id
+		let user_id = req.body.user_id;
+		if (!user_id) {
+			res.status(404).send({'msg': 'Field cannot be null!'});
+		} else {
+			return Inventory
+			.findById(req.params.id, {
+				include: [{
+					model: Item,
+					as: 'items'
+				}, {
+					model: User,
+					as: 'users'
+				}],
 			})
-			.then(() => res.status(200).send(inventory))
+			.then(inventory => {
+				if (!inventory) {
+					return res.status(404).send({
+						message: 'Inventory Not Found!',
+					});
+				}
+				return inventory
+				.update({
+					user_id: user_id || inventory.user_id
+				})
+				.then(() => res.status(200).send(inventory))
+				.catch((error) => res.status(400).send(error));
+			})
 			.catch((error) => res.status(400).send(error));
-		})
-		.catch((error) => res.status(400).send(error));
+		}
 	},
 	
 	delete(req, res) {
