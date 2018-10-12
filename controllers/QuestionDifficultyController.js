@@ -46,39 +46,49 @@ module.exports = {
 	},
 	
 	add(req, res) {
-		return QuestionDifficulty
-		.create({
-			question_difficulty_name: req.body.question_difficulty_name
-		})
-		.then((questionDifficulty) => res.status(201).send(questionDifficulty))
-        .catch((error) => res.status(400).send(error));
+		let question_difficulty_name = req.body.question_difficulty_name;
+		if (!question_difficulty_name){
+			res.status(404).send({'msg': 'Field cannot be null!'});
+		} else {
+			return QuestionDifficulty
+			.create({
+				question_difficulty_name: question_difficulty_name
+			})
+			.then((questionDifficulty) => res.status(201).send(questionDifficulty))
+			.catch((error) => res.status(400).send(error));
+		}
 	},
 	
 	update(req, res) {
-		return QuestionDifficulty
-		.findById(req.params.id, {
-			include: [{
-				model: Challenge,
-				as: 'challenges'
-			}, {
-				model: QuestionCategory,
-				as: 'questionCategories'
-			}],
-		})
-		.then(questionCategory => {
-			if (!questionDifficulty) {
-				return res.status(404).send({
-					message: 'Question difficulty Not Found!',
-				});
-			}
-			return questionDifficulty
-			.update({
-                question_difficulty_name: req.body.question_difficulty_name || questionDifficulty.question_difficulty_name
+		let question_difficulty_name = req.body.question_difficulty_name;
+		if (!question_difficulty_name){
+			res.status(404).send({'msg': 'Field cannot be null!'});
+		} else {
+			return QuestionDifficulty
+			.findById(req.params.id, {
+				include: [{
+					model: Challenge,
+					as: 'challenges'
+				}, {
+					model: QuestionCategory,
+					as: 'questionCategories'
+				}],
 			})
-			.then(() => res.status(200).send(questionDifficulty))
+			.then(questionDifficulty => {
+				if (!questionDifficulty) {
+					return res.status(404).send({
+						message: 'Question difficulty Not Found!',
+					});
+				}
+				return questionDifficulty
+				.update({
+					question_difficulty_name: question_difficulty_name || questionDifficulty.question_difficulty_name
+				})
+				.then(() => res.status(200).send(questionDifficulty))
+				.catch((error) => res.status(400).send(error));
+			})
 			.catch((error) => res.status(400).send(error));
-		})
-		.catch((error) => res.status(400).send(error));
+		}
 	},
 	
 	delete(req, res) {
