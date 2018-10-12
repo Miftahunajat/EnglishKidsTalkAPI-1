@@ -14,7 +14,7 @@ module.exports = {
 			}, 
 			{
 				model: LearningTopic,
-				as: 'learningTopics'
+			as: 'learningTopics'
 			}, 
 			{
 				model: QuestionDifficulty,
