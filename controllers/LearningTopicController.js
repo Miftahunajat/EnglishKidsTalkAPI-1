@@ -40,43 +40,57 @@ module.exports = {
     },
     
     add(req, res) {
-        return LearningTopic
-        .create({
-            question_category_id: req.body.question_category_id,
-            learning_topic_name: req.body.learning_topic_name,
-            learning_topic_image: req.file.url
-        })
-        .then((learningTopic) => res.status(201).send(learningTopic))
-        .catch((error) => res.status(400).send(error));
+        let question_category_id = req.body.question_category_id;
+        let learning_topic_name = req.body.learning_topic_name;
+        let learning_topic_image = req.file.url;
+        if (!question_category_id || !learning_topic_name || !learning_topic_image) {
+            res.status(404).send({'msg': 'Field cannot be null!'});
+        } else {
+            return LearningTopic
+            .create({
+                question_category_id: question_category_id,
+                learning_topic_name: learning_topic_name,
+                learning_topic_image: learning_topic_image
+            })
+            .then((learningTopic) => res.status(201).send(learningTopic))
+            .catch((error) => res.status(400).send(error));
+        }
     },
     
     update(req, res) {
-        return LearningTopic
-        .findById(req.params.id, {
-            include: [{
-                model: QuestionDifficulty,
-                as: 'questionDifficulty'
-            },{
-                model: QuestionCategory,
-                as: 'questionCategory'
-            }],
-        })
-        .then(learningTopic => {
-            if (!learningTopic) {
-                return res.status(404).send({
-                    message: 'LearningTopic Not Found',
-                });
-            }
-            return learningTopic
-            .update({
-                question_category_id: req.body.question_category_id || learningTopic.question_category_id,
-                learning_topic_name: req.body.learning_topic_name || learningTopic.learning_topic_name,
-                learning_topic_image: req.file.url || learningTopic.learning_topic_image
+        let question_category_id = req.body.question_category_id;
+        let learning_topic_name = req.body.learning_topic_name;
+        let learning_topic_image = req.file.url;
+        if (!question_category_id || !learning_topic_name || !learning_topic_image) {
+            res.status(404).send({'msg': 'Field cannot be null!'});
+        } else {
+            return LearningTopic
+            .findById(req.params.id, {
+                include: [{
+                    model: QuestionDifficulty,
+                    as: 'questionDifficulty'
+                },{
+                    model: QuestionCategory,
+                    as: 'questionCategory'
+                }],
             })
-            .then(() => res.status(200).send(learningTopic))
+            .then(learningTopic => {
+                if (!learningTopic) {
+                    return res.status(404).send({
+                        message: 'LearningTopic Not Found',
+                    });
+                }
+                return learningTopic
+                .update({
+                    question_category_id: question_category_id || learningTopic.question_category_id,
+                    learning_topic_name: learning_topic_name || learningTopic.learning_topic_name,
+                    learning_topic_image: learning_topic_image || learningTopic.learning_topic_image
+                })
+                .then(() => res.status(200).send(learningTopic))
+                .catch((error) => res.status(400).send(error));
+            })
             .catch((error) => res.status(400).send(error));
-        })
-        .catch((error) => res.status(400).send(error));
+        }
     },
     
     delete(req, res) {
