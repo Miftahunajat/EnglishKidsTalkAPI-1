@@ -2,8 +2,6 @@ const LearningItem = require('../models').LearningItem;
 const LearningTopic = require('../models').LearningTopic;
 const User = require('../models').User;
 
-const fs = require('fs');
-
 module.exports = {
 	list(req, res) {
 		return LearningItem
@@ -47,18 +45,15 @@ module.exports = {
 	},
 	
 	add(req, res) {
-		res.status(200).send(req.files);
-		// return LearningItem
-		// .create({
-        //     learning_topic_id: req.body.learning_topic_id,
-        //     learning_item_xp: req.body.learning_item_xp,
-        //     learning_item_title: req.body.learning_item_title,
-        //     learning_item_image: req.file.url,
-        //     learning_item_sound: req.body.learning_item_sound,
-        //     learning_item_answer: req.body.learning_item_answer
-		// })
-		// .then((learningItem) => res.status(201).send(learningItem))
-		// .catch((error) => res.status(400).send(error));
+		return LearningItem
+		.create({
+            learning_topic_id: req.body.learning_topic_id,
+            learning_item_xp: req.body.learning_item_xp,
+            learning_item_title: req.body.learning_item_title,
+            learning_item_image: req.file.url
+		})
+		.then((learningItem) => res.status(201).send(learningItem))
+		.catch((error) => res.status(400).send(error));
 	},
 	
 	update(req, res) {
@@ -80,9 +75,7 @@ module.exports = {
                 learning_topic_id: req.body.learning_topic_id || learningItem.learning_topic_id,
                 learning_item_xp: req.body.learning_item_xp || learningItem.learning_item_xp,
                 learning_item_title: req.body.learning_item_title || learningItem.learning_item_title,
-                learning_item_image: req.body.learning_item_image || learningItem.learning_item_image,
-                learning_item_sound: req.body.learning_item_sound || learningItem.learning_item_sound,
-                learning_item_answer: req.body.learning_item_answer || learningItem.learning_item_answer
+                learning_item_image: req.body.learning_item_image || learningItem.learning_item_image
 			})
 			.then(() => res.status(200).send(learningItem))
 			.catch((error) => res.status(400).send(error));

@@ -37,8 +37,8 @@ router.post('/api/users/add-challenge', upload.none(), userController.addChallen
 /* Learning Item Router */
 router.get('/api/learning-items', learningItemController.list);
 router.get('/api/learning-items/:id', learningItemController.getById);
-router.post('/api/learning-items', upload.any(), learningItemController.add);
-router.put('/api/learning-items/:id', upload.any(), learningItemController.update);
+router.post('/api/learning-items', upload.single("learning_item_image"), learningItemController.add);
+router.put('/api/learning-items/:id', upload.single("learning_item_image"), learningItemController.update);
 router.delete('/api/learning-items/:id', learningItemController.delete);
 
 /* Challenge Router */

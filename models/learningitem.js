@@ -4,9 +4,7 @@ module.exports = (sequelize, DataTypes) => {
 		learning_topic_id: DataTypes.INTEGER,
 		learning_item_xp: DataTypes.INTEGER,
 		learning_item_title: DataTypes.STRING,
-		learning_item_image: DataTypes.TEXT,
-		learning_item_sound: DataTypes.TEXT,
-		learning_item_answer: DataTypes.STRING
+		learning_item_image: DataTypes.TEXT
 	}, {});
 	LearningItem.associate = function(models) {
 		LearningItem.belongsToMany(models.User, {
