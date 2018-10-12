@@ -49,48 +49,70 @@ module.exports = {
 	},
 	
 	add(req, res) {
-		return Challenge
-		.create({
-            question_category_id: req.body.question_category_id,
-            question_difficulty_id: req.body.question_difficulty_id,
-            challenge_xp: req.body.challenge_xp,
-            challenge_star: req.body.challenge_star,
-            challenge_image: req.file.url,
-			challenge_question: req.body.challenge_question,
-			challenge_type: req.body.challenge_type
-		})
-		.then((challenge) => res.status(201).send(challenge))
-		.catch((error) => res.status(400).send(error));
+		let question_category_id = req.body.question_category_id;
+		let question_difficulty_id = req.body.question_difficulty_id;
+		let challenge_xp = req.body.challenge_xp;
+		let challenge_star = req.body.challenge_star;
+		let challenge_image = req.file.url;
+		let challenge_question = req.body.challenge_question;
+		let challenge_type = req.body.challenge_type;
+		if (!question_category_id || !question_difficulty_id || !challenge_xp || !challenge_star || !challenge_image || !challenge_question || !challenge_type){
+			res.status(404).send({'msg': 'Field cannot be null!'});
+		} else {
+			return Challenge
+			.create({
+				question_category_id: question_category_id,
+				question_difficulty_id: question_difficulty_id,
+				challenge_xp: challenge_xp,
+				challenge_star: challenge_star,
+				challenge_image: url,
+				challenge_question: challenge_question,
+				challenge_type: challenge_type
+			})
+			.then((challenge) => res.status(201).send(challenge))
+			.catch((error) => res.status(400).send(error));
+		}
 	},
 	
 	update(req, res) {
-		return Challenge
-		.findById(req.params.id, {
-			include: [{
-				model: QuestionDifficulty,
-				as: 'questionDifficulty'
-			}],
-		})
-		.then(challenge => {
-			if (!challenge) {
-				return res.status(404).send({
-					message: 'Challenge Not Found!',
-				});
-			}
-			return challenge
-			.update({
-                question_category_id: req.body.question_category_id || challenge.question_category_id,
-                question_difficulty_id: req.body.question_difficulty_id || challenge.question_difficulty_id,
-                challenge_xp: req.body.challenge_xp || challenge.challenge_xp,
-                challenge_star: req.body.challenge_star || challenge.challenge_star,
-                challenge_image: req.file.url || challenge.challenge_image,
-				challenge_question: req.body.challenge_question || challenge.challenge_question,
-				challenge_type: req.body.challenge_type || challenge.challenge_type
+		let question_category_id = req.body.question_category_id;
+		let question_difficulty_id = req.body.question_difficulty_id;
+		let challenge_xp = req.body.challenge_xp;
+		let challenge_star = req.body.challenge_star;
+		let challenge_image = req.file.url;
+		let challenge_question = req.body.challenge_question;
+		let challenge_type = req.body.challenge_type;
+		if (!question_category_id || !question_difficulty_id || !challenge_xp || !challenge_star || !challenge_image || !challenge_question || !challenge_type){
+			res.status(404).send({'msg': 'Field cannot be null!'});
+		} else {
+			return Challenge
+			.findById(req.params.id, {
+				include: [{
+					model: QuestionDifficulty,
+					as: 'questionDifficulty'
+				}],
 			})
-			.then(() => res.status(200).send(challenge))
+			.then(challenge => {
+				if (!challenge) {
+					return res.status(404).send({
+						message: 'Challenge Not Found!',
+					});
+				}
+				return challenge
+				.update({
+					question_category_id: question_category_id || challenge.question_category_id,
+					question_difficulty_id: question_difficulty_id || challenge.question_difficulty_id,
+					challenge_xp: challenge_xp || challenge.challenge_xp,
+					challenge_star: challenge_star || challenge.challenge_star,
+					challenge_image: challenge_image || challenge.challenge_image,
+					challenge_question: challenge_question || challenge.challenge_question,
+					challenge_type: challenge_type || challenge.challenge_type
+				})
+				.then(() => res.status(200).send(challenge))
+				.catch((error) => res.status(400).send(error));
+			})
 			.catch((error) => res.status(400).send(error));
-		})
-		.catch((error) => res.status(400).send(error));
+		}
 	},
 	
 	delete(req, res) {
