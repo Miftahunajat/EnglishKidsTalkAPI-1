@@ -204,8 +204,8 @@ module.exports = {
 				username: req.body.username || user.username,
 				password: req.body.password || user.password,
 				gender: req.body.gender || user.gender,
-				star_gained: req.body.star_gained || user.star_gained,
-				xp_gained: req.body.xp_gained || user.xp_gained
+				star_gained: parseInt(req.body.star_gained) || user.star_gained,
+				xp_gained: parseInt(req.body.xp_gained) || user.xp_gained
 			})
 			.then(() => res.status(200).send(user))
 			.catch((error) => res.status(400).send(error));
