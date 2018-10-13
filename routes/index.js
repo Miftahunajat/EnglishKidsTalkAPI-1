@@ -27,7 +27,7 @@ router.get('/api/users', userController.list);
 router.get('/api/users/:id', userController.getById);
 router.post('/api/users/register', upload.none(), userController.add);
 router.post('/api/users/login', upload.none(), userController.login);
-router.put('/api/users/:id', upload.none(), userController.update);
+router.patch('/api/users/:id', upload.none(), userController.update);
 router.delete('/api/users/:id', userController.delete);
 
 router.post('/api/users/add-badge', upload.none(), userController.addBadge);
