@@ -70,7 +70,9 @@ module.exports = {
 				name: req.body.name,
 				username: req.body.username,
 				password: req.body.password,
-				gender: req.body.gender
+				gender: req.body.gender,
+				star_gained: 0,
+				xp_gained: 0
 			})
 			.then((user) => {
 				Inventory
@@ -183,38 +185,32 @@ module.exports = {
 	},
 	
 	update(req, res) {
-		let name = req.body.name;
-		let username = req.body.username;
-		let password = req.body.password;
-		let gender = req.body.gender;
-		if (!name || !username || !password || !gender){
-			res.status(404).send({'msg': 'Field cannot be null!'});
-		} else {
-			return User
-			.findById(req.params.id, {
-				include: [{
-					model: Inventory,
-					as: 'inventory'
-				}],
+		return User
+		.findById(req.params.id, {
+			include: [{
+				model: Inventory,
+				as: 'inventory'
+			}],
+		})
+		.then(user => {
+			if (!user) {
+				return res.status(404).send({
+					message: 'User Not Found!',
+				});
+			}
+			return user
+			.update({
+				name: req.body.name || user.name,
+				username: req.body.username || user.username,
+				password: req.body.password || user.password,
+				gender: req.body.gender || user.gender,
+				star_gained: req.body.star_gained || user.star_gained,
+				xp_gained: req.body.xp_gained || user.xp_gained
 			})
-			.then(user => {
-				if (!user) {
-					return res.status(404).send({
-						message: 'User Not Found!',
-					});
-				}
-				return user
-				.update({
-					name: name || user.name,
-					username: username || user.username,
-					password: password || user.password,
-					gender: gender || user.gender
-				})
-				.then(() => res.status(200).send(user))
-				.catch((error) => res.status(400).send(error));
-			})
+			.then(() => res.status(200).send(user))
 			.catch((error) => res.status(400).send(error));
-		}
+		})
+		.catch((error) => res.status(400).send(error));
 	},
 	
 	delete(req, res) {
