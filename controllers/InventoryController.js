@@ -30,7 +30,7 @@ module.exports = {
 			include: [
 			{
 				model: Item,
-				as: 'item'
+				as: 'items'
 			}, 
 			{
                 model: User,
@@ -62,6 +62,39 @@ module.exports = {
 			.catch((error) => res.status(400).send(error));
 		}
 	},
+
+	addItem(req, res) {
+		if (!req.body.inventory_id || !req.body.item_id){
+			res.status(200).send({'msg': 'Field cannot be null!'});
+		} else {
+			return Inventory
+			.findById(req.body.inventory_id, {
+				include: [{
+					model: Item,
+					as: 'items'
+				}],
+			})
+			.then((inventory) => {
+				if (!inventory) {
+					return res.status(404).send({
+						message: 'Inventory Not Found',
+					});
+				}
+				Item
+				.findById(req.body.item_id)
+				.then((item) => {
+					if (!item) {
+						return res.status(404).send({
+							message: 'Item Not Found',
+						});
+					}
+					inventory.addItem(item);
+					return res.status(200).send(inventory);
+				})
+			})
+			.catch((error) => res.status(400).send(error));
+		}
+	},
 	
 	update(req, res) {
 		let user_id = req.body.user_id;
@@ -75,7 +108,7 @@ module.exports = {
 					as: 'items'
 				}, {
 					model: User,
-					as: 'users'
+					as: 'user'
 				}],
 			})
 			.then(inventory => {
