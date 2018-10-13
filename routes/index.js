@@ -103,11 +103,13 @@ router.post('/api/answers', upload.none(), answerController.add);
 router.put('/api/answers/:id', upload.none(), answerController.update);
 router.delete('/api/answers/:id', answerController.delete);
 
-/* Question Difficulty Router */
+/* Inventory Router */
 router.get('/api/inventories', inventoryController.list);
 router.get('/api/inventories/:id', inventoryController.getById);
 router.post('/api/inventories', inventoryController.add);
 router.put('/api/inventories/:id', inventoryController.update);
 router.delete('/api/inventories/:id', inventoryController.delete);
+
+router.post('/api/inventories/add-item', upload.none(), inventoryController.addItem);
 
 module.exports = router;
