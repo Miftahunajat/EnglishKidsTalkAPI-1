@@ -15,15 +15,6 @@ EkitaAPI uses a number of open source projects to work properly:
 * [PostgreSQL](http://postgresql.org) - The world's most advanced open source database
 * [Sequelize](http://docs.sequelizejs.com) - The NodeJS ORM for PostgreSQL, MySQL, SQLLite and MSSQL
 
-### Plugins
-
-Ekita API is currently extended with the following plugins. Instructions on how to use them in your own application are linked below.
-
-| Plugin | README |
-| ------ | ------ |
-| Cloudinary | [plugins/dropbox/README.md][PlDb] |
-| Heroku | [plugins/github/README.md][PlGh] |
-
 ## Authors
 
 * **Syahrul Arifuddin** - *Initial work* - 
