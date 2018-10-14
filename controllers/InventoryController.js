@@ -88,7 +88,7 @@ module.exports = {
 							message: 'Item Not Found',
 						});
 					}
-					inventory.addItem(item);
+					inventory.addItem(item, {through: {is_active: false}});
 					return res.status(200).send(inventory);
 				})
 			})
