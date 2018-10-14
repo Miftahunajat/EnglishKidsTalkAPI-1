@@ -95,6 +95,39 @@ module.exports = {
 			.catch((error) => res.status(400).send(error));
 		}
 	},
+
+	activateItem(req, res) {
+		if (!req.body.inventory_id || !req.body.item_id || !req.body.is_active){
+			res.status(200).send({'msg': 'Field cannot be null!'});
+		} else {
+			return Inventory
+			.findById(req.body.inventory_id, {
+				include: [{
+					model: Item,
+					as: 'items'
+				}],
+			})
+			.then((inventory) => {
+				if (!inventory) {
+					return res.status(404).send({
+						message: 'Inventory Not Found',
+					});
+				}
+				Item
+				.findById(req.body.item_id)
+				.then((item) => {
+					if (!item) {
+						return res.status(404).send({
+							message: 'Item Not Found',
+						});
+					}
+					inventory.setItems(item, {through: {is_active: req.body.is_active}});
+					return res.status(200).send(inventory);
+				})
+			})
+			.catch((error) => res.status(400).send(error));
+		}
+	},
 	
 	update(req, res) {
 		let user_id = req.body.user_id;

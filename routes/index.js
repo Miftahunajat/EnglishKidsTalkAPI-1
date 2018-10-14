@@ -111,5 +111,6 @@ router.put('/api/inventories/:id', inventoryController.update);
 router.delete('/api/inventories/:id', inventoryController.delete);
 
 router.post('/api/inventories/add-item', upload.none(), inventoryController.addItem);
+router.post('/api/inventories/activate-item', upload.none(), inventoryController.activateItem);
 
 module.exports = router;
