@@ -75,38 +75,34 @@ module.exports = {
 	update(req, res) {
 		let question_difficulty_id = req.body.question_difficulty_id;
 		let question_category_name = req.body.question_category_name;
-		if (!question_difficulty_id || !question_category_name){
-			res.status(404).send({'msg': 'Field cannot be null!'});
-		} else {
-			return QuestionCategory
-			.findById(req.params.id, {
-				include: [{
-					model: Challenge,
-					as: 'challenges'
-				}, {
-					model: LearningTopic,
-					as: 'learningTopics'
-				}, {
-					model: QuestionDifficulty,
-					as: 'questionDifficulty'
-				}],
+		return QuestionCategory
+		.findById(req.params.id, {
+			include: [{
+				model: Challenge,
+				as: 'challenges'
+			}, {
+				model: LearningTopic,
+				as: 'learningTopics'
+			}, {
+				model: QuestionDifficulty,
+				as: 'questionDifficulty'
+			}],
+		})
+		.then(questionCategory => {
+			if (!questionCategory) {
+				return res.status(404).send({
+					message: 'Question category Not Found!',
+				});
+			}
+			return questionCategory
+			.update({
+				question_difficulty_id: question_difficulty_id || questionCategory.question_difficulty_id,
+				question_category_name: question_category_name || questionCategory.question_category_name
 			})
-			.then(questionCategory => {
-				if (!questionCategory) {
-					return res.status(404).send({
-						message: 'Question category Not Found!',
-					});
-				}
-				return questionCategory
-				.update({
-					question_difficulty_id: question_difficulty_id || questionCategory.question_difficulty_id,
-					question_category_name: question_category_name || questionCategory.question_category_name
-				})
-				.then(() => res.status(200).send(questionCategory))
-				.catch((error) => res.status(400).send(error));
-			})
+			.then(() => res.status(200).send(questionCategory))
 			.catch((error) => res.status(400).send(error));
-		}
+		})
+		.catch((error) => res.status(400).send(error));
 	},
 	
 	delete(req, res) {
