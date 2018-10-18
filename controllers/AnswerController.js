@@ -63,7 +63,7 @@ module.exports = {
 		.findById(req.params.id, {
 			include: [{
 				model: Challenge,
-				as: 'challenges'
+				as: 'challenge'
 			}],
 		})
 		.then(answer => {
