@@ -79,40 +79,39 @@ module.exports = {
 		let question_difficulty_id = req.body.question_difficulty_id;
 		let challenge_xp = req.body.challenge_xp;
 		let challenge_star = req.body.challenge_star;
-		let challenge_image = req.file.url;
+		let challenge_image = null;
 		let challenge_question = req.body.challenge_question;
 		let challenge_type = req.body.challenge_type;
-		if (!question_category_id || !question_difficulty_id || !challenge_xp || !challenge_star || !challenge_image || !challenge_question || !challenge_type){
-			res.status(404).send({'msg': 'Field cannot be null!'});
-		} else {
-			return Challenge
-			.findById(req.params.id, {
-				include: [{
-					model: QuestionDifficulty,
-					as: 'questionDifficulty'
-				}],
-			})
-			.then(challenge => {
-				if (!challenge) {
-					return res.status(404).send({
-						message: 'Challenge Not Found!',
-					});
-				}
-				return challenge
-				.update({
-					question_category_id: question_category_id || challenge.question_category_id,
-					question_difficulty_id: question_difficulty_id || challenge.question_difficulty_id,
-					challenge_xp: challenge_xp || challenge.challenge_xp,
-					challenge_star: challenge_star || challenge.challenge_star,
-					challenge_image: challenge_image || challenge.challenge_image,
-					challenge_question: challenge_question || challenge.challenge_question,
-					challenge_type: challenge_type || challenge.challenge_type
-				})
-				.then(() => res.status(200).send(challenge))
-				.catch((error) => res.status(400).send(error));
-			})
-			.catch((error) => res.status(400).send(error));
+		if (req.file){
+			challenge_image = req.file.url;
 		}
+		return Challenge
+		.findById(req.params.id, {
+			include: [{
+				model: QuestionDifficulty,
+				as: 'questionDifficulty'
+			}],
+		})
+		.then(challenge => {
+			if (!challenge) {
+				return res.status(404).send({
+					message: 'Challenge Not Found!',
+				});
+			}
+			return challenge
+			.update({
+				question_category_id: question_category_id || challenge.question_category_id,
+				question_difficulty_id: question_difficulty_id || challenge.question_difficulty_id,
+				challenge_xp: challenge_xp || challenge.challenge_xp,
+				challenge_star: challenge_star || challenge.challenge_star,
+				challenge_image: challenge_image || challenge.challenge_image,
+				challenge_question: challenge_question || challenge.challenge_question,
+				challenge_type: challenge_type || challenge.challenge_type
+			})
+			.then(() => res.status(200).send(challenge))
+			.catch((error) => res.status(400).send(error));
+		})
+		.catch((error) => res.status(400).send(error));
 	},
 	
 	delete(req, res) {

@@ -38,14 +38,14 @@ router.post('/api/users/add-challenge', upload.none(), userController.addChallen
 router.get('/api/learning-items', learningItemController.list);
 router.get('/api/learning-items/:id', learningItemController.getById);
 router.post('/api/learning-items', upload.single("learning_item_image"), learningItemController.add);
-router.put('/api/learning-items/:id', upload.single("learning_item_image"), learningItemController.update);
+router.patch('/api/learning-items/:id', upload.single("learning_item_image"), learningItemController.update);
 router.delete('/api/learning-items/:id', learningItemController.delete);
 
 /* Challenge Router */
 router.get('/api/challenges', challengeController.list);
 router.get('/api/challenges/:id', challengeController.getById);
 router.post('/api/challenges', upload.single("challenge_image"), challengeController.add);
-router.put('/api/challenges/:id', upload.single("challenge_image"), challengeController.update);
+router.patch('/api/challenges/:id', upload.single("challenge_image"), challengeController.update);
 router.delete('/api/challenges/:id', challengeController.delete);
 
 /* Item Router */
@@ -55,7 +55,7 @@ router.post('/api/items', upload.fields([
     {name: 'image', maxCount: 1},
     {name: 'snippet', maxCount: 1}
 ]), itemController.add);
-router.put('/api/items/:id', upload.fields([
+router.patch('/api/items/:id', upload.fields([
     {name: 'image', maxCount: 1},
     {name: 'snippet', maxCount: 1}
 ]), itemController.update);
@@ -65,49 +65,49 @@ router.delete('/api/items/:id', itemController.delete);
 router.get('/api/item-categories', itemCategoryController.list);
 router.get('/api/item-categories/:id', itemCategoryController.getById);
 router.post('/api/item-categories', upload.single("item_category_image"), itemCategoryController.add);
-router.put('/api/item-categories/:id', itemCategoryController.update);
+router.patch('/api/item-categories/:id', upload.single("item_category_image"), itemCategoryController.update);
 router.delete('/api/item-categories/:id', itemCategoryController.delete);
 
 /* Question Category Router */
 router.get('/api/question-categories', questionCategoryController.list);
 router.get('/api/question-categories/:id', questionCategoryController.getById);
 router.post('/api/question-categories', upload.none(), questionCategoryController.add);
-router.put('/api/question-categories/:id', upload.none(), questionCategoryController.update);
+router.patch('/api/question-categories/:id', upload.none(), questionCategoryController.update);
 router.delete('/api/question-categories/:id', questionCategoryController.delete);
 
 /* Question Difficulty Router */
 router.get('/api/question-difficulties', questionDifficultyController.list);
 router.get('/api/question-difficulties/:id', questionDifficultyController.getById);
 router.post('/api/question-difficulties', upload.none(), questionDifficultyController.add);
-router.put('/api/question-difficulties/:id', upload.none(), questionDifficultyController.update);
+router.patch('/api/question-difficulties/:id', upload.none(), questionDifficultyController.update);
 router.delete('/api/question-difficulties/:id', questionDifficultyController.delete);
 
 /* Learning Topic Router */
 router.get('/api/learning-topics', learningTopicController.list);
 router.get('/api/learning-topics/:id', learningTopicController.getById);
 router.post('/api/learning-topics', upload.single("learning_topic_image"), learningTopicController.add);
-router.put('/api/learning-topics/:id', upload.single("learning_topic_image"), learningTopicController.update);
+router.patch('/api/learning-topics/:id', upload.single("learning_topic_image"), learningTopicController.update);
 router.delete('/api/learning-topics/:id', learningTopicController.delete);
 
 /* Badge Router */
 router.get('/api/badges', badgeController.list);
 router.get('/api/badges/:id', badgeController.getById);
 router.post('/api/badges', upload.single("badge_image") ,badgeController.add);
-router.put('/api/badges/:id', upload.single("badge_image"), badgeController.update);
+router.patch('/api/badges/:id', upload.single("badge_image"), badgeController.update);
 router.delete('/api/badges/:id', badgeController.delete);
 
 /* Answer Router */
 router.get('/api/answers', answerController.list);
 router.get('/api/answers/:id', answerController.getById);
 router.post('/api/answers', upload.none(), answerController.add);
-router.put('/api/answers/:id', upload.none(), answerController.update);
+router.patch('/api/answers/:id', upload.none(), answerController.update);
 router.delete('/api/answers/:id', answerController.delete);
 
 /* Inventory Router */
 router.get('/api/inventories', inventoryController.list);
 router.get('/api/inventories/:id', inventoryController.getById);
 router.post('/api/inventories', inventoryController.add);
-router.put('/api/inventories/:id', inventoryController.update);
+router.patch('/api/inventories/:id', inventoryController.update);
 router.delete('/api/inventories/:id', inventoryController.delete);
 
 router.post('/api/inventories/add-item', upload.none(), inventoryController.addItem);
