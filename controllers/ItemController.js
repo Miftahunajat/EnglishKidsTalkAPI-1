@@ -109,8 +109,8 @@ module.exports = {
                 item_desc: item_desc || item.item_desc,
                 star: star || item.star,
                 gender: gender || item.gender,
-                image: image,
-                snippet: snippet
+                image: image || item.image,
+                snippet: snippet || item.snippet
             })
             .then(() => res.status(200).send(item))
             .catch((error) => res.status(400).send(error));

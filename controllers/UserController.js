@@ -3,6 +3,7 @@ const Badge = require('../models').Badge;
 const Inventory = require('../models').Inventory;
 const LearningItem = require('../models').LearningItem;
 const Challenge = require('../models').Challenge;
+const DEFAULT_ITEM_IDS = [1,2,3,4];
 
 module.exports = {
 	list(req, res) {
