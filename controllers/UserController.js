@@ -3,6 +3,11 @@ const Badge = require('../models').Badge;
 const Inventory = require('../models').Inventory;
 const LearningItem = require('../models').LearningItem;
 const Challenge = require('../models').Challenge;
+const Item = require('../models').Item;
+const DEFAULT_GIRL_ITEM_IDS = [1,2];
+const DEFAULT_BOY_ITEM_IDS = [1,2];
+// const DEFAULT_GIRL_ITEM_IDS = [37,38,39];
+// const DEFAULT_BOY_ITEM_IDS = [41,42,43];
 
 module.exports = {
 	list(req, res) {
@@ -64,13 +69,15 @@ module.exports = {
 		let gender = req.body.gender;
 		if (!name || !username || !password || !gender){
 			res.status(404).send({'msg': 'Field cannot be null!'});
-		} else {
+		} 
+		else {
+			gender = parseInt(gender);
 			return User
 			.create({
 				name: req.body.name,
 				username: req.body.username,
 				password: req.body.password,
-				gender: req.body.gender,
+				gender: gender,
 				star_gained: 0,
 				xp_gained: 0
 			})
@@ -84,7 +91,20 @@ module.exports = {
 					.update({
 						inventory_id: inventory.id
 					})
-					.then(() => res.status(201).send(user))
+					.then((user) => {
+						let itemTemp = [];
+						if (user.gender == 0) itemTemp = DEFAULT_BOY_ITEM_IDS
+						else itemTemp = DEFAULT_GIRL_ITEM_IDS
+						for (idx in itemTemp) {
+							Item
+							.findById(idx)
+							.then((item) => {
+								inventory.addItem(item, {through: {is_active: true}});
+							})
+							.catch((error) => res.status(400).send(error));
+						}
+						res.status(201).send({'msg' : 'Successfully registered !'});
+					})
 					.catch((error) => res.status(400).send(error));
 				})
 				.catch((error) => res.status(400).send(error));

@@ -63,8 +63,8 @@ module.exports = {
 			.create({
 				question_category_id: question_category_id,
 				question_difficulty_id: question_difficulty_id,
-				challenge_xp: challenge_xp,
-				challenge_star: challenge_star,
+				challenge_xp: parseInt(challenge_xp),
+				challenge_star: parseInt(challenge_star),
 				challenge_image: challenge_image,
 				challenge_question: challenge_question,
 				challenge_type: challenge_type

@@ -1,6 +1,6 @@
 const LearningTopic = require('../models').LearningTopic;
-const QuestionDifficulty = require('../models').QuestionDifficulty;
 const QuestionCategory = require('../models').QuestionCategory;
+const LearningItem = require('../models').LearningItem;
 
 module.exports = {
     list(req, res) {
@@ -67,8 +67,8 @@ module.exports = {
         return LearningTopic
         .findById(req.params.id, {
             include: [{
-                model: QuestionDifficulty,
-                as: 'questionDifficulty'
+                model: LearningItem,
+                as: 'learningItems'
             },{
                 model: QuestionCategory,
                 as: 'questionCategory'
