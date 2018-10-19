@@ -51,9 +51,10 @@ module.exports = {
         let name = req.body.name;
         let item_desc = req.body.item_desc;
         let star = req.body.star;
+        let gender = req.body.gender;
         let image = req.files["image"][0].url;
         let snippet = req.files["snippet"][0].url;
-        if (!item_category_id || !name || !item_desc || !star || !image || !snippet){
+        if (!item_category_id || !name || !item_desc || !star || !gender || !image || !snippet){
 			res.status(404).send({'msg': 'Field cannot be null!'});
 		} else {
             return Item
@@ -62,6 +63,7 @@ module.exports = {
                 name: name,
                 item_desc: item_desc,
                 star: star,
+                gender: gender,
                 image: image,
                 snippet: snippet
             })
@@ -75,12 +77,13 @@ module.exports = {
         let name = req.body.name;
         let item_desc = req.body.item_desc;
         let star = req.body.star;
+        let gender = parseInt(req.body.gender);
         let image = null;
         let snippet = null;
-        if (!image){
+        if (req.files["image"]){
             image = req.files["image"][0].url;
         }
-        if (!snippet){
+        if (req.files["snippet"]){
             snippet = req.files["snippet"][0].url;
         }
         return Item
@@ -105,6 +108,7 @@ module.exports = {
                 name: name || item.name,
                 item_desc: item_desc || item.item_desc,
                 star: star || item.star,
+                gender: gender || item.gender,
                 image: image,
                 snippet: snippet
             })
@@ -112,6 +116,7 @@ module.exports = {
             .catch((error) => res.status(400).send(error));
         })
         .catch((error) => res.status(400).send(error));
+        // res.send(req.body);
     },
     
     delete(req, res) {
