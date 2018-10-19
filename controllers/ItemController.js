@@ -62,8 +62,8 @@ module.exports = {
                 item_category_id: item_category_id,
                 name: name,
                 item_desc: item_desc,
-                star: star,
-                gender: gender,
+                star: parseInt(star),
+                gender: parseInt(gender),
                 image: image,
                 snippet: snippet
             })
