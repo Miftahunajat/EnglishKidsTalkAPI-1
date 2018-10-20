@@ -59,13 +59,15 @@ module.exports = {
 	add(req, res) {
 		let question_difficulty_id = req.body.question_difficulty_id;
 		let question_category_name = req.body.question_category_name;
-		if (!question_difficulty_id || !question_category_name){
+		let star_needed = req.body.star_needed;
+		if (!question_difficulty_id || !question_category_name || !star_needed){
 			res.status(404).send({'msg': 'Field cannot be null!'});
 		} else {
 			return QuestionCategory
 			.create({
 				question_difficulty_id: question_difficulty_id,
-				question_category_name: question_category_name
+				question_category_name: question_category_name,
+				star_needed: star_needed
 			})
 			.then((questionCategory) => res.status(201).send(questionCategory))
 			.catch((error) => res.status(400).send(error));
@@ -75,6 +77,7 @@ module.exports = {
 	update(req, res) {
 		let question_difficulty_id = req.body.question_difficulty_id;
 		let question_category_name = req.body.question_category_name;
+		let star_needed = req.body.star_needed;
 		return QuestionCategory
 		.findById(req.params.id, {
 			include: [{
@@ -97,7 +100,8 @@ module.exports = {
 			return questionCategory
 			.update({
 				question_difficulty_id: question_difficulty_id || questionCategory.question_difficulty_id,
-				question_category_name: question_category_name || questionCategory.question_category_name
+				question_category_name: question_category_name || questionCategory.question_category_name,
+				star_needed: star_needed || questionCategory.star_needed
 			})
 			.then(() => res.status(200).send(questionCategory))
 			.catch((error) => res.status(400).send(error));
