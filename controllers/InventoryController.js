@@ -1,6 +1,7 @@
 const User = require('../models').User;
 const Item = require('../models').Item;
 const Inventory = require('../models').Inventory;
+const InventoryItem = require('../models').InventoryItem;
 
 module.exports = {
 	list(req, res) {
@@ -121,7 +122,7 @@ module.exports = {
 							message: 'Item Not Found',
 						});
 					}
-					inventory.setItems(item, {through: {is_active: req.body.is_active}});
+					inventory.addItem(item, {through: {is_active: req.body.is_active}})
 					return res.status(200).send(inventory);
 				})
 			})
