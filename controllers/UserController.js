@@ -4,6 +4,7 @@ const Inventory = require('../models').Inventory;
 const LearningItem = require('../models').LearningItem;
 const Challenge = require('../models').Challenge;
 const Item = require('../models').Item;
+const QuestionCategory = require('../models').QuestionCategory;
 const DEFAULT_GIRL_ITEM_IDS = [1,2];
 const DEFAULT_BOY_ITEM_IDS = [1,2];
 // const DEFAULT_GIRL_ITEM_IDS = [37,38,39];
@@ -25,6 +26,9 @@ module.exports = {
 			}, {
 				model: Challenge,
 				as: 'challenges'
+			}, {
+				model: QuestionCategory,
+				as: 'questionCategories'
 			}],
 			order: [
 				['createdAt', 'DESC']
@@ -49,6 +53,9 @@ module.exports = {
 			}, {
 				model: Challenge,
 				as: 'challenges'
+			}, {
+				model: QuestionCategory,
+				as: 'questionCategories'
 			}],
 		})
 		.then((user) => {
@@ -201,6 +208,35 @@ module.exports = {
 					});
 				}
 				user.addChallenge(challenge);
+				return res.status(200).send(user);
+			})
+		})
+		.catch((error) => res.status(400).send(error));
+	},
+
+	addQuestionCategory(req, res){
+		return User
+		.findById(req.body.user_id, {
+			include: [{
+				model: QuestionCategory,
+				as: 'questionCategories'
+			}],
+		})
+		.then((user) => {
+			if (!user) {
+				return res.status(404).send({
+					message: 'User Not Found',
+				});
+			}
+			QuestionCategory
+			.findById(req.body.question_category_id)
+			.then((questionCategory) => {
+				if (!questionCategory) {
+					return res.status(404).send({
+						message: 'Question Category Not Found',
+					});
+				}
+				user.addQuestionCategory(questionCategory);
 				return res.status(200).send(user);
 			})
 		})
