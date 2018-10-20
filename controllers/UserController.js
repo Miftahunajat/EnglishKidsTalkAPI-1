@@ -4,10 +4,10 @@ const Inventory = require('../models').Inventory;
 const LearningItem = require('../models').LearningItem;
 const Challenge = require('../models').Challenge;
 const Item = require('../models').Item;
-// const DEFAULT_GIRL_ITEM_IDS = [1,2];
-// const DEFAULT_BOY_ITEM_IDS = [1,2];
-const DEFAULT_GIRL_ITEM_IDS = [37,38,39];
-const DEFAULT_BOY_ITEM_IDS = [41,42,43];
+const DEFAULT_GIRL_ITEM_IDS = [1,2];
+const DEFAULT_BOY_ITEM_IDS = [1,2];
+// const DEFAULT_GIRL_ITEM_IDS = [37,38,39];
+// const DEFAULT_BOY_ITEM_IDS = [41,42,43];
 
 module.exports = {
 	list(req, res) {
