@@ -33,6 +33,7 @@ router.delete('/api/users/:id', userController.delete);
 router.post('/api/users/add-badge', upload.none(), userController.addBadge);
 router.post('/api/users/add-learning-item', upload.none(), userController.addLearningItem);
 router.post('/api/users/add-challenge', upload.none(), userController.addChallenge);
+router.post('/api/users/add-question-category', upload.none(), userController.addQuestionCategory);
 
 /* Learning Item Router */
 router.get('/api/learning-items', learningItemController.list);
