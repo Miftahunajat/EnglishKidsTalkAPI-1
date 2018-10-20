@@ -5,10 +5,13 @@ const LearningItem = require('../models').LearningItem;
 const Challenge = require('../models').Challenge;
 const Item = require('../models').Item;
 const QuestionCategory = require('../models').QuestionCategory;
-const DEFAULT_GIRL_ITEM_IDS = [1,2];
-const DEFAULT_BOY_ITEM_IDS = [1,2];
-// const DEFAULT_GIRL_ITEM_IDS = [37,38,39];
-// const DEFAULT_BOY_ITEM_IDS = [41,42,43];
+
+const bcrypt = require('bcrypt');
+
+// const DEFAULT_GIRL_ITEM_IDS = [1,2];
+// const DEFAULT_BOY_ITEM_IDS = [1,2];
+const DEFAULT_GIRL_ITEM_IDS = [37,38,39];
+const DEFAULT_BOY_ITEM_IDS = [41,42,43];
 
 module.exports = {
 	list(req, res) {
@@ -81,9 +84,9 @@ module.exports = {
 			gender = parseInt(gender);
 			return User
 			.create({
-				name: req.body.name,
-				username: req.body.username,
-				password: req.body.password,
+				name: name,
+				username: username,
+				password: bcrypt.hashSync(password, 10),
 				gender: gender,
 				star_gained: 0,
 				xp_gained: 0
