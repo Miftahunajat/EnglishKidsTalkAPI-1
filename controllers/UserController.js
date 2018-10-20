@@ -95,15 +95,18 @@ module.exports = {
 						let itemTemp = [];
 						if (user.gender == 0) itemTemp = DEFAULT_BOY_ITEM_IDS
 						else itemTemp = DEFAULT_GIRL_ITEM_IDS
-						for (idx in itemTemp) {
+						Item
+						.findById(itemTemp[0])
+						.then((item1) => {
 							Item
-							.findById(idx)
-							.then((item) => {
-								inventory.addItem(item, {through: {is_active: true}});
+							.findById(itemTemp[1])
+							.then((item2) => {
+								inventory.setItems([item1, item2], {through: {is_active: true}});
+								res.status(201).send({'msg' : 'Successfully registered !'});
 							})
 							.catch((error) => res.status(400).send(error));
-						}
-						res.status(201).send({'msg' : 'Successfully registered !'});
+						})
+						.catch((error) => res.status(400).send(error));
 					})
 					.catch((error) => res.status(400).send(error));
 				})
