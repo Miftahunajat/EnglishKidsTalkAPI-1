@@ -25,8 +25,8 @@ router.get('/', function(req, res, next) {
 /* User Router */
 router.get('/api/users', userController.list);
 router.get('/api/users/:id', userController.getById);
-router.post('/api/users/register', upload.none(), userController.add);
-router.post('/api/users/login', upload.none(), userController.login);
+// router.post('/api/users/register', upload.none(), userController.add);
+// router.post('/api/users/login', upload.none(), userController.login);
 router.patch('/api/users/:id', upload.none(), userController.update);
 router.delete('/api/users/:id', userController.delete);
 

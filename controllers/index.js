@@ -9,6 +9,7 @@ const LearningTopicController = require('./LearningTopicController');
 const ItemController = require('./ItemController');
 const LearningItemController = require('./LearningItemController');
 const ChallengeController = require('./ChallengeController');
+const AuthController = require('./AuthController');
 
 module.exports = {
 	BadgeController,
@@ -21,5 +22,6 @@ module.exports = {
 	LearningTopicController,
 	ItemController,
 	LearningItemController,
-	ChallengeController
+	ChallengeController,
+	AuthController
 };
