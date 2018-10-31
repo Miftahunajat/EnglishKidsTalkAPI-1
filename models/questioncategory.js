@@ -18,11 +18,6 @@ module.exports = (sequelize, DataTypes) => {
 			foreignKey: 'question_difficulty_id',
 			as: 'questionDifficulty'
 		});
-		QuestionCategory.belongsToMany(models.User, {
-			through: 'CategoryProgress',
-			as: 'users',
-			foreignKey: 'question_category_id'
-		});
 	};
 	return QuestionCategory;
 };

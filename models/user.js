@@ -1,4 +1,6 @@
 'use strict';
+const bcrypt = require('bcrypt');
+
 module.exports = (sequelize, DataTypes) => {
 	const User = sequelize.define('User', {
 		inventory_id: DataTypes.INTEGER,
@@ -29,11 +31,17 @@ module.exports = (sequelize, DataTypes) => {
 			as: 'challenges',
 			foreignKey: 'user_id'
 		});
-		User.belongsToMany(models.QuestionCategory, {
-			through: 'CategoryProgress',
-			as: 'questionCategories',
+		User.belongsToMany(models.QuestionDifficulty, {
+			through: 'DifficultyProgress',
+			as: 'questionDifficulties',
 			foreignKey: 'user_id'
 		});
 	};
+	// User.prototype.generateHash = function(password) {
+	// 	return bcrypt.hash(password, bcrypt.genSaltSync(8));
+	// }
+	// User.prototype.validPassword = function(password) {
+	// 	return bcrypt.compare(password, this.password);
+	// }
 	return User;
 };

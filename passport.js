@@ -4,22 +4,19 @@ const passportJWT 	= require("passport-jwt");
 const JWTStrategy   = passportJWT.Strategy;
 const ExtractJWT 	= passportJWT.ExtractJwt;
 const UserModel		= require('./models').User;
+const bcrypt		= require('bcrypt');
 
 passport.use(new LocalStrategy({
-	usernameField: 'username',
+	emailField: 'username',
 	passwordField: 'password'
 }, 
 function (username, password, cb) {
-	let whereUser = {
-		username: username,
-		password: password
-	}
-	return UserModel.findOne({where: whereUser})
+	return UserModel.findOne({where: {username: username}})
 	.then(user => {
-		if (!user) {
-			return cb(null, false, {message: 'Incorrect username or password!'});
+		if (bcrypt.compare(password, this.password)) {
+			return cb(null, user, {message: 'Logged in successfully!'});
 		}
-		return cb(null, user, {message: 'Logged in successfully!'});
+		return cb(null, false, {message: 'Failed to login!'});
 	})
 	.catch(err => cb(err));
 }

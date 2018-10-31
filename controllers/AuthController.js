@@ -7,14 +7,12 @@ const passport = require('passport');
 
 const bcrypt = require('bcrypt');
 
-// const DEFAULT_GIRL_ITEM_IDS = [1,2];
-// const DEFAULT_BOY_ITEM_IDS = [1,2];
 const DEFAULT_GIRL_ITEM_IDS = [37,38,39];
 const DEFAULT_BOY_ITEM_IDS = [41,42,43];
 
 module.exports = {
-
-    register(req, res) {
+	
+	register(req, res) {
 		let name = req.body.name;
 		let username = req.body.username;
 		let password = req.body.password;
@@ -28,7 +26,7 @@ module.exports = {
 			.create({
 				name: name,
 				username: username,
-				password: bcrypt.hashSync(password, 10),
+				password: password,
 				gender: gender,
 				star_gained: 0,
 				xp_gained: 0
@@ -67,20 +65,23 @@ module.exports = {
 			.catch((error) => res.status(400).send(error));
 		}
 	},
-
-    login(req, res, next) {
+	
+	login(req, res, next) {
 		passport.authenticate('local', {session: false, failureFlash: true}, (err, user, info) => {
 			if (err || !user) {
 				return next(err);
 			}
-		   	req.login(user, {session: false}, (err) => {
-			   if (err) {
-				   res.send(err);
-			   }
-			   const token = jwt.sign(user.toJSON(), 'your_jwt_secret');
-			   return res.json({user, token});
+			req.login(user, {session: false}, (err) => {
+				if (err) {
+					res.send(err);
+				}
+				if (!user){
+					return res.status(404).json({msg: 'Login failed!'});
+				}
+				const token = jwt.sign(user.toJSON(), 'your_jwt_secret');
+				return res.json({msg: 'Login successfully!', token});
 			});
 		})(req, res);
-    }
-    
+	}
+	
 }

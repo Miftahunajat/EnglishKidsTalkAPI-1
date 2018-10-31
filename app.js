@@ -22,8 +22,9 @@ app.use((req, res, next) => {
     next();
 });
 
-app.use('/auth', authRouter);
-app.use('/', passport.authenticate('jwt', {session: false}), indexRouter);
+app.use('/api/auth', authRouter);
+app.use('/api', passport.authenticate('jwt', {session: false}), indexRouter);
+// app.use('/api', indexRouter);
 
 app.use((req, res, next) => {
     let docLink = 'https://editor.swagger.io';
