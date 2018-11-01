@@ -29,10 +29,11 @@ router.post('/api/users/register', upload.none(), userController.add);
 router.post('/api/users/login', upload.none(), userController.login);
 router.patch('/api/users/:id', upload.none(), userController.update);
 router.delete('/api/users/:id', userController.delete);
-
 router.post('/api/users/add-badge', upload.none(), userController.addBadge);
 router.post('/api/users/add-learning-item', upload.none(), userController.addLearningItem);
 router.post('/api/users/add-challenge', upload.none(), userController.addChallenge);
+router.post('/api/users/add-question-difficulty', upload.none(), userController.addQuestionDifficulty);
+
 
 /* Learning Item Router */
 router.get('/api/learning-items', learningItemController.list);

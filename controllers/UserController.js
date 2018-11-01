@@ -3,11 +3,10 @@ const Badge = require('../models').Badge;
 const Inventory = require('../models').Inventory;
 const LearningItem = require('../models').LearningItem;
 const Challenge = require('../models').Challenge;
+const QuestionDifficulty = require('../models').QuestionDifficulty;
 const Item = require('../models').Item;
 const DEFAULT_GIRL_ITEM_IDS = [1,2];
 const DEFAULT_BOY_ITEM_IDS = [1,2];
-// const DEFAULT_GIRL_ITEM_IDS = [37,38,39];
-// const DEFAULT_BOY_ITEM_IDS = [41,42,43];
 
 module.exports = {
 	list(req, res) {
@@ -25,6 +24,9 @@ module.exports = {
 			}, {
 				model: Challenge,
 				as: 'challenges'
+			}, {
+				model: QuestionDifficulty,
+				as: 'questionDifficulties'
 			}],
 			order: [
 				['createdAt', 'DESC']
@@ -201,6 +203,35 @@ module.exports = {
 					});
 				}
 				user.addChallenge(challenge);
+				return res.status(200).send(user);
+			})
+		})
+		.catch((error) => res.status(400).send(error));
+	},
+
+	addQuestionDifficulty(req, res){
+		return User
+		.findById(req.body.user_id, {
+			include: [{
+				model: QuestionDifficulty,
+				as: 'questionDifficulties'
+			}],
+		})
+		.then((user) => {
+			if (!user) {
+				return res.status(404).send({
+					message: 'User Not Found',
+				});
+			}
+			QuestionDifficulty
+			.findById(req.body.question_difficulty_id)
+			.then((questionDifficulty) => {
+				if (!questionDifficulty) {
+					return res.status(404).send({
+						message: 'Question Category Not Found',
+					});
+				}
+				user.addQuestionDifficulty(questionDifficulty);
 				return res.status(200).send(user);
 			})
 		})

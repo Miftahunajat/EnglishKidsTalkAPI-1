@@ -7,15 +7,11 @@ module.exports = {
 		return QuestionDifficulty
 		.findAll({
 			include: [{
-				model: Challenge,
-				as: 'challenges'
-			}, {
 				model: QuestionCategory,
 				as: 'questionCategories'
 			}],
 			order: [
 				['createdAt', 'DESC'],
-				[{ model: Challenge, as: 'challenges' }, 'createdAt', 'DESC'],
 				[{ model: QuestionCategory, as: 'questionCategories' }, 'createdAt', 'DESC'],
 			],
 		})
@@ -27,9 +23,6 @@ module.exports = {
 		return QuestionDifficulty
 		.findById(req.params.id, {
 			include: [{
-				model: Challenge,
-				as: 'challenges'
-			}, {
 				model: QuestionCategory,
 				as: 'questionCategories'
 			}],
@@ -91,7 +84,8 @@ module.exports = {
 		return QuestionDifficulty
 		.findById(req.params.id)
 		.then(questionDifficulty => {
-			if (!questionDifficulty) {
+			if (!questionDiffic
+				[{ model: Challenge, as: 'challenges' }, 'createdAt', 'DESC'],ulty) {
 				return res.status(400).send({
 					message: 'Question Difficulty Not Found!',
 				});
