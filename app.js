@@ -3,7 +3,8 @@ const app = express();
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
 
-var indexRouter = require('./routes/index');
+let indexRouter = require('./routes/index');
+let authRouter = require('./routes/auth');
 
 app.use(morgan('dev'));
 app.use(bodyParser.urlencoded({extended: false}));
@@ -19,7 +20,8 @@ app.use((req, res, next) => {
     next();
 });
 
-app.use('/', indexRouter);
+app.use('/api/auth', authRouter);
+app.use('/api', indexRouter);
 
 app.use((req, res, next) => {
     let docLink = 'https://editor.swagger.io';
