@@ -1,5 +1,5 @@
 const Challenge = require('../models').Challenge;
-const QuestionDifficulty = require('../models').QuestionDifficulty;
+const QuestionCategory = require('../models').QuestionCategory;
 const User = require('../models').User;
 const Answer = require('../models').Answer;
 
@@ -8,8 +8,8 @@ module.exports = {
 		return Challenge
 		.findAll({
 			include: [{
-				model: QuestionDifficulty,
-				as: 'questionDifficulty'
+				model: QuestionCategory,
+				as: 'questionCategory'
 			}, {
                 model: User,
                 as: 'users'
@@ -30,12 +30,15 @@ module.exports = {
 		return Challenge
 		.findById(req.params.id, {
 			include: [{
-				model: QuestionDifficulty,
-				as: 'questionDifficulty'
+				model: QuestionCategory,
+				as: 'questionCategory'
 			}, {
                 model: User,
                 as: 'users'
-            }],
+            }, {
+				model: Answer,
+				as: 'answers'
+			}],
 		})
 		.then((challenge) => {
 			if (!challenge) {
@@ -88,8 +91,8 @@ module.exports = {
 		return Challenge
 		.findById(req.params.id, {
 			include: [{
-				model: QuestionDifficulty,
-				as: 'questionDifficulty'
+				model: QuestionCategory,
+				as: 'questionCategory'
 			}],
 		})
 		.then(challenge => {
