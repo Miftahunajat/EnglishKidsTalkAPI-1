@@ -5,8 +5,8 @@ const Item = require('../models').Item;
 const jwt = require('jsonwebtoken');
 const passport = require('passport');
 
-const DEFAULT_GIRL_ITEM_IDS = [1,2,3];
-const DEFAULT_BOY_ITEM_IDS = [4,5,6];
+const DEFAULT_GIRL_ITEM_IDS = [4,5,6];
+const DEFAULT_BOY_ITEM_IDS = [1,2,3];
 
 module.exports = {
 	register(req, res) {
