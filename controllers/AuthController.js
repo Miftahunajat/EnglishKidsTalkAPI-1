@@ -2,6 +2,9 @@ const User = require('../models').User;
 const Inventory = require('../models').Inventory;
 const Item = require('../models').Item;
 
+const jwt = require('jsonwebtoken');
+const passport = require('passport');
+
 const DEFAULT_GIRL_ITEM_IDS = [1,2,3];
 const DEFAULT_BOY_ITEM_IDS = [4,5,6];
 
@@ -45,11 +48,15 @@ module.exports = {
 							Item
 							.findById(itemTemp[1])
 							.then((item2) => {
-								inventory.setItems([item1, item2], {through: {is_active: true}});
-								res.status(201).send({
-									'msg' : 'Successfully registered !',
-									'user' : user
-								});
+								Item
+								.findById(itemTemp[2])
+								.then((item3) => {
+									inventory.setItems([item1, item2, item3], {through: {is_active: true}});
+									res.status(201).send({
+										user
+									});
+								})
+								.catch((error) => res.status(400).send(error));
 							})
 							.catch((error) => res.status(400).send(error));
 						})
@@ -61,5 +68,23 @@ module.exports = {
 			})
 			.catch((error) => res.status(400).send(error));
 		}
+	},
+	
+	login(req, res, next) {
+		passport.authenticate('local', {session: false, failureFlash: true}, (err, user, info) => {
+			if (err || !user) {
+				return next(err);
+			}
+			req.login(user, {session: false}, (err) => {
+				if (err) {
+					res.send(err);
+				}
+				if (!user){
+					return res.status(404).json({msg: 'Login failed!'});
+				}
+				const token = jwt.sign(user.toJSON(), 'your_jwt_secret');
+				return res.json({msg: 'Login successfully!', token});
+			});
+		})(req, res);
 	}
 }

@@ -1,4 +1,6 @@
 const express = require('express');
+const passport = require('./passport');
+
 const app = express();
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
@@ -21,7 +23,7 @@ app.use((req, res, next) => {
 });
 
 app.use('/api/auth', authRouter);
-app.use('/api', indexRouter);
+app.use('/api', passport.authenticate('jwt', {session: false}), indexRouter);
 
 app.use((req, res, next) => {
     let docLink = 'https://editor.swagger.io';

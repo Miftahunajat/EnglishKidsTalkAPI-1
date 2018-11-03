@@ -12,10 +12,10 @@ passport.use(new LocalStrategy({
 function (username, password, cb) {
 	return UserModel.findOne({where: {username: username, password: password}})
 	.then(user => {
-		if (bcrypt.compare(password, this.password)) {
-			return cb(null, user, {message: 'Logged in successfully!'});
+		if (!user) {
+			return cb(null, false, {message: 'Failed to login!'});
 		}
-		return cb(null, false, {message: 'Failed to login!'});
+		return cb(null, user, {message: 'Logged in successfully!'});
 	})
 	.catch(err => cb(err));
 }
