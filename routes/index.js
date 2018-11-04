@@ -13,6 +13,10 @@ const learningTopicController = require('../controllers').LearningTopicControlle
 const itemController = require('../controllers').ItemController;
 const learningItemController = require('../controllers').LearningItemController;
 const challengeController = require('../controllers').ChallengeController;
+const badgeTransactionController = require('../controllers').BadgeTransactionController;
+const challengeTransactionController = require('../controllers').ChallengeTransactionController;
+const difficultyTransactionController = require('../controllers').DifficultyTransactionController;
+const learningTransactionController = require('../controllers').LearningTransactionController;
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -27,10 +31,11 @@ router.get('/users', userController.list);
 router.get('/users/:id', userController.getById);
 router.patch('/users/:id', upload.none(), userController.update);
 router.delete('/users/:id', userController.delete);
-router.post('/users/add-badge', upload.none(), userController.addBadge);
-router.post('/users/add-learning-item', upload.none(), userController.addLearningItem);
-router.post('/users/add-challenge', upload.none(), userController.addChallenge);
-router.post('/users/add-question-difficulty', upload.none(), userController.addQuestionDifficulty);
+
+router.post('/users/:user-id/badges/:badge-id', upload.none(), userController.addBadge);
+router.post('/users/:user-id/learning-items/:learning-item', upload.none(), userController.addLearningItem);
+router.post('/users/:user-id/challenges/:challenge', upload.none(), userController.addChallenge);
+router.post('/users/:user-id/question-difficulties/:question-difficulty', upload.none(), userController.addQuestionDifficulty);
 
 
 /* Learning Item Router */

@@ -10,6 +10,10 @@ const ItemController = require('./ItemController');
 const LearningItemController = require('./LearningItemController');
 const ChallengeController = require('./ChallengeController');
 const AuthController = require('./AuthController');
+const BadgeTransactionController = require('./transactions/BadgeTransactionController');
+const ChallengeTransactionController = require('./transactions/ChallengeTransactionController');
+const DifficultyTransactionController = require('./transactions/DifficultyTransactionController');
+const LearningTransactionController = require('./transactions/LearningTransactionController');
 
 module.exports = {
 	BadgeController,
@@ -24,4 +28,8 @@ module.exports = {
 	LearningItemController,
 	ChallengeController,
 	AuthController,
+	BadgeTransactionController,
+	ChallengeTransactionController,
+	DifficultyTransactionController,
+	LearningTransactionController
 };

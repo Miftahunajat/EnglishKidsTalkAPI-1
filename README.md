@@ -2,9 +2,9 @@
 
 # English Kids Talk (Ekita) API Server
 
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/b947073a94e1442c86123249dfe038a4)](https://www.codacy.com/app/syahrulak98/EnglishKidsTalkAPI?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=bossyahrul/EnglishKidsTalkAPI&amp;utm_campaign=Badge_Grade)
+[![Build Status](https://travis-ci.com/bossyahrul/EnglishKidsTalkAPI.svg?branch=master)](https://travis-ci.com/bossyahrul/EnglishKidsTalkAPI)
 
-[![Build Status](https://travis-ci.org/joemccann/dillinger.svg?branch=master)](https://travis-ci.org/joemccann/dillinger)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/b947073a94e1442c86123249dfe038a4)](https://www.codacy.com/app/syahrulak98/EnglishKidsTalkAPI?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=bossyahrul/EnglishKidsTalkAPI&amp;utm_campaign=Badge_Grade)
 
 Providing RESTful API for Mobile and Admin App
 ### Tech
