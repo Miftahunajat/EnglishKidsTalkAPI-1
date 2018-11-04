@@ -1,4 +1,4 @@
-<p align="center"><img src="https://res.cloudinary.com/klagen-storage/image/upload/v1539350153/avatars/ekita.png"></p>
+<p align="center"><img style="width: 40px; height: auto;" src="https://res.cloudinary.com/klagen-storage/image/upload/v1539350153/avatars/ekita.png"></p>
 
 # English Kids Talk (Ekita) API Server
 
