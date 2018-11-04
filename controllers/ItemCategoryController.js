@@ -1,8 +1,6 @@
 const ItemCategory = require('../models').ItemCategory;
 const Item = require('../models').Item;
 
-const fs = require('fs');
-
 module.exports = {
 	list(req, res) {
 		return ItemCategory
