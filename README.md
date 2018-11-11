@@ -5,7 +5,7 @@
 <a href="https://www.codacy.com/app/syahrulak98/EnglishKidsTalkAPI?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=bossyahrul/EnglishKidsTalkAPI&amp;utm_campaign=Badge_Grade"><img src="https://api.codacy.com/project/badge/Grade/05cc504b3d6245d4b1d6b4be98a4e1ca" alt="Code Quality"></a>
 </p>
 
-Providing RESTful API for Mobile and Admin App
+Providing RESTful API for Mobile and Web App
 ### Tech
 
 EkitaAPI uses a number of open source projects to work properly:
@@ -14,6 +14,7 @@ EkitaAPI uses a number of open source projects to work properly:
 * [PostgreSQL](http://postgresql.org) - The world's most advanced open source database
 * [Sequelize](http://docs.sequelizejs.com) - The NodeJS ORM for PostgreSQL, MySQL, SQLite and MSSQL
 * [Codacy](http://codacy.com) - Codacy automates code reviews and monitors code quality over time
+* [TravisCI](http://travis-ci.org) - Travis CI is a hosted, distributed continuous integration service used to build and test software projects hosted at GitHub
 
 ## Authors
 
