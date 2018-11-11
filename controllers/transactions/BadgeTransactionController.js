@@ -1,5 +1,5 @@
-const User = require('../models').User;
-const Badge = require('../models').Badge;
+const User = require('../../models').User;
+const Badge = require('../../models').Badge;
 
 module.exports = {
 	

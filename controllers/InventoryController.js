@@ -1,7 +1,6 @@
 const User = require('../models').User;
 const Item = require('../models').Item;
 const Inventory = require('../models').Inventory;
-const InventoryItem = require('../models').InventoryItem;
 
 module.exports = {
 	list(req, res) {
@@ -60,72 +59,6 @@ module.exports = {
 				user_id: user_id
 			})
 			.then((inventory) => res.status(201).send(inventory))
-			.catch((error) => res.status(400).send(error));
-		}
-	},
-
-	addItem(req, res) {
-		if (!req.body.inventory_id || !req.body.item_id){
-			res.status(200).send({'msg': 'Field cannot be null!'});
-		} else {
-			return Inventory
-			.findById(req.body.inventory_id, {
-				include: [{
-					model: Item,
-					as: 'items'
-				}],
-			})
-			.then((inventory) => {
-				if (!inventory) {
-					return res.status(404).send({
-						message: 'Inventory Not Found',
-					});
-				}
-				Item
-				.findById(req.body.item_id)
-				.then((item) => {
-					if (!item) {
-						return res.status(404).send({
-							message: 'Item Not Found',
-						});
-					}
-					inventory.addItem(item, {through: {is_active: false}});
-					return res.status(200).send(inventory);
-				})
-			})
-			.catch((error) => res.status(400).send(error));
-		}
-	},
-
-	activateItem(req, res) {
-		if (!req.body.inventory_id || !req.body.item_id || !req.body.is_active){
-			res.status(200).send({'msg': 'Field cannot be null!'});
-		} else {
-			return Inventory
-			.findById(req.body.inventory_id, {
-				include: [{
-					model: Item,
-					as: 'items'
-				}],
-			})
-			.then((inventory) => {
-				if (!inventory) {
-					return res.status(404).send({
-						message: 'Inventory Not Found',
-					});
-				}
-				Item
-				.findById(req.body.item_id)
-				.then((item) => {
-					if (!item) {
-						return res.status(404).send({
-							message: 'Item Not Found',
-						});
-					}
-					inventory.addItem(item, {through: {is_active: req.body.is_active}})
-					return res.status(200).send(inventory);
-				})
-			})
 			.catch((error) => res.status(400).send(error));
 		}
 	},

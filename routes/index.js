@@ -17,6 +17,7 @@ const badgeTransactionController = require('../controllers').BadgeTransactionCon
 const challengeTransactionController = require('../controllers').ChallengeTransactionController;
 const difficultyTransactionController = require('../controllers').DifficultyTransactionController;
 const learningTransactionController = require('../controllers').LearningTransactionController;
+const itemTransactionController = require('../controllers').ItemTransactionController;
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -32,11 +33,10 @@ router.get('/users/:id', userController.getById);
 router.patch('/users/:id', upload.none(), userController.update);
 router.delete('/users/:id', userController.delete);
 
-router.post('/users/:user-id/badges/:badge-id', upload.none(), userController.addBadge);
-router.post('/users/:user-id/learning-items/:learning-item', upload.none(), userController.addLearningItem);
-router.post('/users/:user-id/challenges/:challenge', upload.none(), userController.addChallenge);
-router.post('/users/:user-id/question-difficulties/:question-difficulty', upload.none(), userController.addQuestionDifficulty);
-
+router.post('/users/:id/badges', upload.none(), badgeTransactionController.addBadge);
+router.post('/users/:id/learning-items', upload.none(), learningTransactionController.addLearningItem);
+router.post('/users/:id/challenges', upload.none(), challengeTransactionController.addChallenge);
+router.post('/users/:id/question-difficulties', upload.none(), difficultyTransactionController.addQuestionDifficulty);
 
 /* Learning Item Router */
 router.get('/learning-items', learningItemController.list);
@@ -114,7 +114,7 @@ router.post('/inventories', inventoryController.add);
 router.patch('/inventories/:id', inventoryController.update);
 router.delete('/inventories/:id', inventoryController.delete);
 
-router.post('/inventories/add-item', upload.none(), inventoryController.addItem);
-router.post('/inventories/activate-item', upload.none(), inventoryController.activateItem);
+router.post('/inventories/:inventory_id/items', upload.none(), itemTransactionController.addItem);
+router.get('/inventories/:inventory_id/items/:item_id', upload.none(), itemTransactionController.activateItem);
 
 module.exports = router;

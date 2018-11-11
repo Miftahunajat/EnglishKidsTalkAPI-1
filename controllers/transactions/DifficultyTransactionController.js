@@ -1,5 +1,5 @@
-const User = require('../models').User;
-const QuestionDifficulty = require('../models').QuestionDifficulty;
+const User = require('../../models').User;
+const QuestionDifficulty = require('../../models').QuestionDifficulty;
 
 module.exports = {
 	

@@ -14,6 +14,7 @@ const BadgeTransactionController = require('./transactions/BadgeTransactionContr
 const ChallengeTransactionController = require('./transactions/ChallengeTransactionController');
 const DifficultyTransactionController = require('./transactions/DifficultyTransactionController');
 const LearningTransactionController = require('./transactions/LearningTransactionController');
+const ItemTransactionController = require('./transactions/ItemTransactionController');
 
 module.exports = {
 	BadgeController,
@@ -31,5 +32,6 @@ module.exports = {
 	BadgeTransactionController,
 	ChallengeTransactionController,
 	DifficultyTransactionController,
-	LearningTransactionController
+	LearningTransactionController,
+	ItemTransactionController
 };

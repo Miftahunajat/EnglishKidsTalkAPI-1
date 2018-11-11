@@ -1,5 +1,5 @@
-const User = require('../models').User;
-const LearningItem = require('../models').LearningItem;
+const User = require('../../models').User;
+const LearningItem = require('../../models').LearningItem;
 
 module.exports = {
 	
