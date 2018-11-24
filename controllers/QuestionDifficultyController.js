@@ -40,12 +40,14 @@ module.exports = {
 	
 	add(req, res) {
 		let question_difficulty_name = req.body.question_difficulty_name;
-		if (!question_difficulty_name){
+		let star_needed = req.body.star_needed;
+		if (!question_difficulty_name || !star_needed){
 			res.status(404).send({'msg': 'Field cannot be null!'});
 		} else {
 			return QuestionDifficulty
 			.create({
-				question_difficulty_name: question_difficulty_name
+				question_difficulty_name: question_difficulty_name,
+				star_needed: parseInt(star_needed)
 			})
 			.then((questionDifficulty) => res.status(201).send(questionDifficulty))
 			.catch((error) => res.status(400).send(error));
@@ -54,16 +56,9 @@ module.exports = {
 	
 	update(req, res) {
 		let question_difficulty_name = req.body.question_difficulty_name;
+		let star_needed = req.body.star_needed;
 		return QuestionDifficulty
-		.findById(req.params.id, {
-			include: [{
-				model: Challenge,
-				as: 'challenges'
-			}, {
-				model: QuestionCategory,
-				as: 'questionCategories'
-			}],
-		})
+		.findById(req.params.id)
 		.then(questionDifficulty => {
 			if (!questionDifficulty) {
 				return res.status(404).send({
@@ -72,7 +67,8 @@ module.exports = {
 			}
 			return questionDifficulty
 			.update({
-				question_difficulty_name: question_difficulty_name || questionDifficulty.question_difficulty_name
+				question_difficulty_name: question_difficulty_name || questionDifficulty.question_difficulty_name,
+				star_needed: star_needed || questionDifficulty.star_needed,
 			})
 			.then(() => res.status(200).send(questionDifficulty))
 			.catch((error) => res.status(400).send(error));
@@ -84,8 +80,7 @@ module.exports = {
 		return QuestionDifficulty
 		.findById(req.params.id)
 		.then(questionDifficulty => {
-			if (!questionDiffic
-				[{ model: Challenge, as: 'challenges' }, 'createdAt', 'DESC'],ulty) {
+			if (!questionDifficulty) {
 				return res.status(400).send({
 					message: 'Question Difficulty Not Found!',
 				});
