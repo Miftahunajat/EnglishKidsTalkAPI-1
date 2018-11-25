@@ -6,6 +6,11 @@
 </p>
 
 Providing RESTful API for Mobile and Web App
+### API Documentation
+
+EkitaAPI uses [Postman API Docs Generator](https://documenter.getpostman.org) :
+Please refer to this link to see [API Documentation](https://documenter.getpostman.com/view/3186416/RWgwQvKL) .
+
 ### Tech
 
 EkitaAPI uses a number of open source projects to work properly:

@@ -1,5 +1,5 @@
 const express = require('express');
-const passport = require('./passport');
+const passport = require('./config/passport.config');
 
 const app = express();
 const morgan = require('morgan');

@@ -2,6 +2,7 @@ const Item = require('../../models').Item;
 const Inventory = require('../../models').Inventory;
 
 module.exports = {
+
 	addItem(req, res) {
 		if (!req.body.item_id){
 			res.status(200).send({'msg': 'Field cannot be null!'});
@@ -24,13 +25,10 @@ module.exports = {
 					}
 					inventory.getUser()
 					.then((associatedUser) => {
-						// Check if user has enough star to buy items
 						if (associatedUser.star_gained < item.star)
 							return res.status(400).send({data: 'Star not enough!'});
-						// Add item to user's inventory
 						inventory.addItem(item, {through: {is_active: false}})
 						.then(() => {
-							// Reduce the user's star
 							associatedUser.update({
 								star_gained: associatedUser.star_gained - item.star
 							})
@@ -92,4 +90,5 @@ module.exports = {
 		})
 		.catch((error) => res.status(400).send(error));
 	}
-};
+
+}; 
