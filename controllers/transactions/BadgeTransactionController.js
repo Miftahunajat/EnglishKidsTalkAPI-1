@@ -2,32 +2,35 @@ const User = require('../../models').User;
 const Badge = require('../../models').Badge;
 
 module.exports = {
-	
+
 	addBadge(req, res) {
-		return User
-		.findById(req.body.user_id, {
-			include: [{
-				model: Badge,
-				as: 'badges'
-			}],
-		})
-		.then((user) => {
-			if (!user) {
+		const getUserPromise = User.findById(req.params.id);
+		const getBadgePromise = Badge.findById(req.body.badge_id);
+
+		Promise.all([
+			getUserPromise,
+			getBadgePromise
+		]).then(([user, badge]) => {
+			if (user && badge) {
+				// if (user.hasBadge(badge))
+				// 	return res.status(400).send({msg: 'This user is already earned this badge!'});
+				// else
+				// 	user.addBadge(badge);
+				user.addBadge(badge);
+				return res.status(200).send({
+					'msg': 'Badge earned successfully!'
+				});
+			} else {
+				let message = '';
+				if (!user) {
+					message = 'User not found!';
+				} else if (!badge) {
+					message = 'Badge not found!';
+				}
 				return res.status(404).send({
-					message: 'User Not Found',
+					message: message,
 				});
 			}
-			Badge
-			.findById(req.body.badge_id)
-			.then((badge) => {
-				if (!badge) {
-					return res.status(404).send({
-						message: 'Badge Not Found',
-					});
-				}
-				user.addBadge(badge);
-				return res.status(200).send(user);
-			})
 		})
 		.catch((error) => res.status(400).send(error));
 	}

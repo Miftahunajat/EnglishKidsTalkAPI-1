@@ -1,4 +1,3 @@
-const Challenge = require('../models').Challenge;
 const QuestionDifficulty = require('../models').QuestionDifficulty;
 const QuestionCategory = require('../models').QuestionCategory;
 
