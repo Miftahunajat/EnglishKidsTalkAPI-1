@@ -53,19 +53,17 @@ module.exports = {
 	
 	add(req, res) {
 		let question_category_id = req.body.question_category_id;
-		let question_difficulty_id = req.body.question_difficulty_id;
 		let challenge_xp = req.body.challenge_xp;
 		let challenge_star = req.body.challenge_star;
 		let challenge_image = req.file.url;
 		let challenge_question = req.body.challenge_question;
 		let challenge_type = req.body.challenge_type;
-		if (!question_category_id || !question_difficulty_id || !challenge_xp || !challenge_star || !challenge_image || !challenge_question || !challenge_type){
+		if (!question_category_id || !challenge_xp || !challenge_star || !challenge_image || !challenge_question || !challenge_type){
 			res.status(404).send({'msg': 'Field cannot be null!'});
 		} else {
 			return Challenge
 			.create({
 				question_category_id: question_category_id,
-				question_difficulty_id: question_difficulty_id,
 				challenge_xp: parseInt(challenge_xp),
 				challenge_star: parseInt(challenge_star),
 				challenge_image: challenge_image,

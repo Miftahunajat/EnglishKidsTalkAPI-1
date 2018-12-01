@@ -4,32 +4,27 @@ const Challenge = require('../../models').Challenge;
 module.exports = {
 	
 	addChallenge(req, res) {
-		return User
-		.findById(req.body.user_id, {
-			include: [{
-				model: Challenge,
-				as: 'challenges'
-			}],
-		})
-		.then((user) => {
-			if (!user) {
-				return res.status(404).send({
-					message: 'User Not Found',
-				});
-			}
-			Challenge
-			.findById(req.body.challenge_id)
-			.then((challenge) => {
-				if (!challenge) {
-					return res.status(404).send({
-						message: 'Challenge Not Found',
-					});
-				}
+		const getUserPromise = User.findById(req.params.id);
+		const getChallengePromise = Challenge.findById(req.body.challenge_id);
+
+		Promise.all([
+			getUserPromise,
+			getChallengePromise
+		])
+		.then(([user, challenge]) => {
+			if (user && challenge) {
 				user.addChallenge(challenge);
 				return res.status(200).send(user);
-			})
+			} else {
+				let message = '';
+				if (!user)
+					message = 'User not found !';
+				else if (!challenge)
+					message = 'Challenge not found !';
+				res.status(404).send({msg: message});
+			}
 		})
-		.catch((error) => res.status(400).send(error));
+		.catch((error) => res.status.send(error));
 	}
 
 };

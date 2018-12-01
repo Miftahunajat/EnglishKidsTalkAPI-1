@@ -16,7 +16,7 @@ const DifficultyTransactionController = require('./transactions/DifficultyTransa
 const LearningTransactionController = require('./transactions/LearningTransactionController');
 const ItemTransactionController = require('./transactions/ItemTransactionController');
 
-module.exports = {
+const Controllers = {
 	BadgeController,
 	AnswerController,
 	ItemCategoryController,
@@ -34,4 +34,6 @@ module.exports = {
 	DifficultyTransactionController,
 	LearningTransactionController,
 	ItemTransactionController
-};
+}
+
+module.exports = Controllers;
