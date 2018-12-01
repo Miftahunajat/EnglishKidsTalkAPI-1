@@ -4,32 +4,25 @@ const LearningItem = require('../../models').LearningItem;
 module.exports = {
 	
 	addLearningItem(req, res) {
-		return User
-		.findById(req.body.user_id, {
-			include: [{
-				model: LearningItem,
-				as: 'learningItems'
-			}],
-		})
-		.then((user) => {
-			if (!user) {
-				return res.status(404).send({
-					message: 'User Not Found',
-				});
-			}
-			LearningItem
-			.findById(req.body.learning_item_id)
-			.then((learningItem) => {
-				if (!learningItem) {
-					return res.status(404).send({
-						message: 'Learning Item Not Found',
-					});
-				}
+		const getUserPromise = User.findById(req.body.user_id);
+		const getLearningItemPromise = LearningItem.findById(req.body.learning_item_id);
+
+		Promise.all([
+			getUserPromise,
+			getLearningItemPromise
+		]).then(([user, learningItem]) => {
+			if (user && learningItem) {
 				user.addLearningItem(learningItem);
-				return res.status(200).send(user);
-			})
+				res.status(200).send({msg: 'Learning item successfully added!'});
+			} else {
+				let message = '';
+				if (!user)
+					message = 'User not found !';
+				else if (!learningItem)
+					message = 'Learning item not found!';
+				return res.status(404).send({msg: message});
+			}
 		})
 		.catch((error) => res.status(400).send(error));
 	}
-	
-};
+}
