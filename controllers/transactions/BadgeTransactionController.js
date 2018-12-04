@@ -12,10 +12,6 @@ module.exports = {
 			getBadgePromise
 		]).then(([user, badge]) => {
 			if (user && badge) {
-				// if (user.hasBadge(badge))
-				// 	return res.status(400).send({msg: 'This user is already earned this badge!'});
-				// else
-				// 	user.addBadge(badge);
 				user.addBadge(badge);
 				return res.status(200).send({
 					'msg': 'Badge earned successfully!'
