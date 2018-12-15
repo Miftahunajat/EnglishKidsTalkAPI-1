@@ -1,19 +1,31 @@
-# English Kids Talk (Ekita) API Server
+# :no_good: :no_good: English Kids Talk (Ekita) API Server
 
 <p align="center">
 <a href="https://travis-ci.com/bossyahrul/EnglishKidsTalkAPI"><img src="https://travis-ci.com/bossyahrul/EnglishKidsTalkAPI.svg?branch=master" alt="Build Status"></a>
 <a href="https://www.codacy.com/app/syahrulak98/EnglishKidsTalkAPI?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=bossyahrul/EnglishKidsTalkAPI&amp;utm_campaign=Badge_Grade"><img src="https://api.codacy.com/project/badge/Grade/05cc504b3d6245d4b1d6b4be98a4e1ca" alt="Code Quality"></a>
 </p>
 
-Providing RESTful API for Mobile and Web App
+This is the code for Setoz Creative Industries' English Kids Talk REST API, open source for your inspiration. It's not meant for installation or customization.
+
 ### API Documentation
 
 EkitaAPI uses [Postman API Docs Generator](https://documenter.getpostman.org) :
 Please refer to this link to see [API Documentation](https://documenter.getpostman.com/view/3186416/RWgwQvKL) .
 
-### Tech
+## Installation
 
-EkitaAPI uses a number of open source projects to work properly:
+Use the package manager [npm](https://npmjs.com/) to install.
+
+```bash
+git clone https://github.com/bossyahrul/EnglishKidsTalkAPI.git
+npm install
+npm run build
+npm run serve
+```
+
+### Techstack
+
+Ekita API Server uses a number of open source projects to work properly:
 
 * [NodeJS](http://nodejs.org) - open-source, cross-platform JavaScript run-time environment that executes JavaScript code outside of a browser
 * [PostgreSQL](http://postgresql.org) - The world's most advanced open source database
