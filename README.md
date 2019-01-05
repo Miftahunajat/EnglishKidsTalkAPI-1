@@ -16,9 +16,9 @@ This is the code for Setoz Creative Industries' English Kids Talk REST API, open
 
 English Kids Talk Related Project:
 
-1. [English Kids Talk Android Client](https://github.com/Miftahunajat/EnglishKidsTalk) - Manage the androidn client side of English Kids Talk application
-2. [English Kids Talk Dashboard Admin Page](http://postgresql.org) - Admin page for English Kids Talk to managing content and managing user.
-3. [English Kids Talk Client Page](http://docs.sequelizejs.com) - The front client page of english kids talk.
+1. [English Kids Talk Android Client](https://github.com/Miftahunajat/EnglishKidsTalk) - Manage the android client side of English Kids Talk application
+2. [English Kids Talk Dashboard Admin Page](https://github.com/ckmd/EnglishKidsTalkDashboard) - Admin page for English Kids Talk to managing content and managing user.
+3. [English Kids Talk Landing Page](https://github.com/ckmd/EnglishKidsTalkLanding) - The front Landing page of english kids talk.
 
 
 ### API Documentation
