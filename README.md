@@ -7,6 +7,20 @@
 
 This is the code for Setoz Creative Industries' English Kids Talk REST API, open source for your inspiration. It's not meant for installation or customization.
 
+## English Kids Talk Structure
+<p align="center">
+<img src="https://github.com/bossyahrul/EnglishKidsTalkAPI/blob/master/Architecture%20System.png" width="750">
+</p>
+
+### Related Project
+
+English Kids Talk Related Project:
+
+1. [English Kids Talk Android Client](https://github.com/Miftahunajat/EnglishKidsTalk) - Manage the androidn client side of English Kids Talk application
+2. [English Kids Talk Dashboard Admin Page](http://postgresql.org) - Admin page for English Kids Talk to managing content and managing user.
+3. [English Kids Talk Client Page](http://docs.sequelizejs.com) - The front client page of english kids talk.
+
+
 ### API Documentation
 
 EkitaAPI uses [Postman API Docs Generator](https://documenter.getpostman.org) :
