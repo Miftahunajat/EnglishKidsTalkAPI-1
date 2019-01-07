@@ -60,7 +60,6 @@ module.exports = {
 
 	add(req, res) {
 		let question_category_id = req.body.question_category_id;
-		let question_difficulty_id = req.body.question_difficulty_id;
 		let challenge_xp = req.body.challenge_xp;
 		let challenge_star = req.body.challenge_star;
 		let challenge_image = req.file.url;
